@@ -2,8 +2,10 @@ var tool = require('cloneextend'),
     conf = {};
     conf.production = {
         application:    {
-            errorHandler: {}
-                   },
+            errorHandler: {},
+            //username    : 'demo',
+            //password    : 'Que62msjiDU0b2yYvi2zbavw' // bEdESpuGU3rewasaphEfaKedR7r=M#fU
+        },
         server:         {
             port        : '80'
         },
