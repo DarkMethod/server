@@ -1,0 +1,1154 @@
+<!-- start: LANDING PAGE -->
+<div class="landing-page">
+    <div id="section-0">
+        <div class="navbar navbar-default" id="landing-header" role="navigation" landing-header>
+            <!-- start: TOP NAVIGATION CONTAINER -->
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- start: RESPONSIVE MENU TOGGLER -->
+                    <a class="landing-menu-toggler btn btn-red hidden-sm hidden-md hidden-lg mobile-button" id="landing-menu-toggler" ng-click="landingNavbarCollapsed = !landingNavbarCollapsed">
+                        <span class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i>
+                    </a>
+                    <!-- end: RESPONSIVE MENU TOGGLER -->
+                    <!-- start: LOGO -->
+                    <a href="index.html" class="navbar-brand">
+						<!--
+						<h2 id="landing-page-brand-title">{{app.name}}</h2>
+						-->
+						<img src="assets/images/logo.png" alt="Clip-Two">
+					</a>
+                    <!-- end: LOGO -->
+                </div>
+                <div class="navbar-collapse collapse" uib-collapse="landingNavbarCollapsed" ng-init="landingNavbarCollapsed = true" off-click="landingNavbarCollapsed = true" off-click-if='!landingNavbarCollapsed' off-click-filter="'#landing-menu-toggler'">
+                    <ul class="nav navbar-nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="#landing-header" data-ct-fullheight-if="isSmallDevice">
+                        <li class="active">
+                            <a href="#section-0" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-1" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                               Services
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-2" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                Features
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-3" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                Testimonials
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-4" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                FAQ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-5" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                Contact
+                            </a>
+                        </li>
+						<li>
+                            <a href="#section-5" du-smooth-scroll du-scrollspy offset="30" ng-click="landingNavbarCollapsed = true">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+                    <div class="close-handle visible-xs-block menu-toggler" ng-click="landingNavbarCollapsed = true" ng-swipe-up="landingNavbarCollapsed = true">
+                        <div class="arrow-left"></div>
+                        <div class="arrow-right"></div>
+                    </div>
+                    <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+                </div>
+            </div>
+            <!-- end: TOP NAVIGATION CONTAINER -->
+        </div>
+        <div class="landing-content dots-left dots-white">
+            <!-- start: CAROUSEL -->
+            <slick dots=true arrows=false infinite=false speed=300 autoplay=true autoplay-speed=6000 slides-to-show=1 slides-to-scroll=1 class="carousel">
+                <div class="slide" style="background: url('assets/images/carousel/carousel001.jpg')">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+                                <div class="custom-caption" >
+                                    <h1 class="text-white text-bold">
+										WE UNDERSTAND
+                                    </h1>
+                                    <!--
+									<p class="text-white">
+                                        Add the content and we'll do the rest to get you a great page rank.
+                                    </p>
+									
+                                    <p>
+										<button class="btn btn-red margin-right-5" ui-sref="login.signin" role="button" v-pressable>
+                                            Sign In
+                                        </button>
+                                        <a ui-sref="login.registration" class="btn btn-default">
+                                            Sign up for a business account
+                                        </a>
+                                    </p>
+									-->
+                                </div>
+								<!--
+                                <div class="image hidden-sm hidden-xs">
+                                    <img src="assets/images/desktop.png" alt="" />
+                                </div>
+								-->
+                            </div>
+                        </div>
+						<div class="row">
+							<div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-3">
+								<div class="text-center">
+									<p>
+										<button class="btn btn-red" ui-sref="login.signin" role="button" v-pressable>
+                                            Sign In
+                                        </button>
+                                        <a ui-sref="login.registration" class="btn btn-default">
+                                            Sign Up for a free account
+                                        </a>
+                                    </p>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+                <div class="slide" style="background: url('assets/images/carousel/carousel002.jpg')">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+                                <div class="custom-caption" >
+                                    <h1 class="text-white text-bold">
+										WE UNDERSTAND
+                                    </h1>
+                                    <!--
+									<p class="text-white">
+                                        Add the content and we'll do the rest to get you a great page rank.
+                                    </p>
+									
+                                    <p>
+										<button class="btn btn-red margin-right-5" ui-sref="login.signin" role="button" v-pressable>
+                                            Sign In
+                                        </button>
+                                        <a ui-sref="login.registration" class="btn btn-default">
+                                            Sign up for a business account
+                                        </a>
+                                    </p>
+									-->
+                                </div>
+								<!--
+                                <div class="image hidden-sm hidden-xs">
+                                    <img src="assets/images/desktop.png" alt="" />
+                                </div>
+								-->
+                            </div>
+                        </div>
+						<div class="row">
+							<div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-3">
+								<div class="text-center">
+									<p>
+										<button class="btn btn-red" ui-sref="login.signin" role="button" v-pressable>
+                                            Sign In
+                                        </button>
+                                        <a ui-sref="login.registration" class="btn btn-default">
+                                            Sign Up for a free account
+                                        </a>
+                                    </p>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+            </slick>
+            <!-- end: CAROUSEL -->
+        </div>
+        <section class="container-fluid container-fullw padding-bottom-30 bg-white padding-top-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">ABOUT US</h2>
+                        <hr />
+					</div>
+					<div class="col-md-12">
+						<p class="margin-bottom-50">
+							<span class="text-bold">Yedupudi</span> is a result of like minded Non-Resident Indians from Tamil Nadu who faced a lot of issues in starting and completing tasks in India in their absence.
+							The need was for an entity that could be trusted to take care of tasks very important and personal to them, like managing the health of their aged parents or
+							monitoring the education of their children in colleges or building their dream house. Yedupudi aims to be your trustworthy professional partner who will take
+							care of things on your behalf.<span class="text-bold"> Yedupudi understands the NRI.</span>
+						</p>	
+					</div>
+					<!--
+                    <div class="col-md-4">
+                        <h4 class="over-title margin-bottom-15">Advanced Tools and <span class="text-bold">Software</span></h4>
+                        <p>
+                            Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets.
+                        </p>
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="over-title margin-bottom-15">Exclusive Industry <span class="text-bold">Knowledge</span></h4>
+                        <p>
+                            Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets.
+                        </p>
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="over-title margin-bottom-15">Cost <span class="text-bold">Benefit</span></h4>
+                        <p>
+                            Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets.
+                        </p>
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        </p>
+                    </div>
+					-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- start: SECTION 1 -->
+    <div id="section-1">
+        <section class="container-fluid container-fullw bg-white padding-bottom-30 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>SERVICES</h2>
+                        <hr>
+                        <p class="margin-bottom-30">
+                            We are associated with <strong>top professionals and labour</strong> who are trained with the <strong>latest technologies</strong>.
+                        </p>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-md-4 ">
+						<div class=" figure-wrapper padding-top-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-1.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Property Management</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+                    </div>
+					<div class="col-md-4 ">
+						<div class=" figure-wrapper padding-top-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-2.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Medical Services</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+					</div>
+					<div class="col-md-4 ">
+						<div class=" figure-wrapper padding-top-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-3.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Auditing &amp; Legal Services</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+					</div>
+                </div>
+				<div class="row">
+                    <div class="col-md-4 col-lg-4 ">
+                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-4.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Document Procurement</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+                    </div>
+					<div class="col-md-4 ">
+                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-5.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Travel</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+                    </div>
+					<div class="col-md-4 ">
+                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
+							<figure class="effect-goliath">
+								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-6.jpg" alt="img02"/>
+								<figcaption>
+									<h2 class="text-white"><span>Education &amp; Tracking</span></h2>
+									<p>A little info here</p>
+									<a href="login.registration">View more</a>
+								</figcaption>			
+							</figure>
+						</div>
+                    </div>
+                </div>
+            </div>
+		</section>
+		<section class="container-fluid container-fullw padding-bottom-30 bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 text-center">
+                        <img class="img-responsive inline margin-top-40" src="assets/images/iphone.png" ng-appear="animationBlock5 = true" ng-class="{'animated fadeInLeft': animationBlock5}">
+                    </div>
+                    <div class="col-sm-8">
+                        <h2 class="margin-top-30 text-white text-bold">Get A Quick Quote</h2>
+                        <p>
+                            Send us an email by entering your details and any comments you may have in the form.
+                        </p>
+						<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+								<div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Your Email">
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+								<div class="form-group">
+                                    <input type="phone" name="phone" class="form-control" placeholder="Phone">
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name ="message" class="form-control autosize area-animated msd-elastic: \n;" placeholder="Your Message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-red btn-wide btn-scroll btn-scroll-top fa-arrow-right">
+                            <span>Send Message</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>	
+		<!--
+        <section class="container-fluid container-fullw bg-white padding-bottom-0 overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>Take advantage of great responsive dynamic views</h2>
+                        <hr>
+                        <p class="margin-bottom-30">
+                            Nulla consequat massa quis enim. <strong>Donec pede justo</strong> fringilla vel, aliquet nec, vulputate eget, arcu.
+                            <br>
+                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                        </p>
+                        <img src="assets/images/graphic.jpg" class="img-responsive inline-block" ng-appear="animationBlock3 = true" ng-class="{'animated fadeInUp': animationBlock3}" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container-fluid container-fullw no-padding no-border">
+            <a class="btn btn-red btn-block no-radius wrap">
+                <div class="container clearfix margin-top-35 margin-bottom-35">
+                    <h2 class="no-margin text-white">Do great things with a productive admin dashboard template. <strong>See More</strong></h2>
+                </div>
+            </a>
+        </section>
+		-->
+    </div>
+    <!-- end: SECTION 1 -->
+    <!-- start: SECTION 2 -->
+    
+	<div id="section-2">
+        <section class="container-fluid container-fullw padding-bottom-30 section-features">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3 col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
+                        <h2>FEATURES</h2>
+                        <hr>
+                        <p class="margin-bottom-30">
+                            We are associated with <strong>top professionals and labour</strong> who are trained with the <strong>latest technologies</strong>.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3 col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
+                        <div class="row" ng-appear="animationBlock1 = true">
+                            <div class="col-sm-6">
+                                <div class="padding-top-40 padding-bottom-40">
+                                    <div class="block">
+                                        <i class="text-red fa fa-trophy fa-3x" ng-class="{'animated fadeInUp': animationBlock1}"></i>
+                                    </div>
+                                    <div ng-class="{'animated fadeInDown': animationBlock1}">
+                                        <div class="margin-top-20">
+                                            <h4 class="margin-bottom-25 text-uppercase cl-effect-3">
+                                                <a href="#">
+                                                    Professional
+                                                </a>
+                                            </h4>
+                                            <p>
+                                                All services are carried out by experienced professionals in that area. 
+												Our supervisors will be available to ensure that it is a job well done.
+												They will keep updating the status of the task and you can view this anytime on your dashboard. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="padding-top-40 padding-bottom-40">
+                                    <div class="block">
+                                        <i class="text-red fa fa-phone fa-3x" ng-class="{'animated fadeInUp': animationBlock1}"></i>
+                                    </div>
+                                    <div ng-class="{'animated fadeInDown': animationBlock1}">
+                                        <div class="margin-top-20">
+                                            <h4 class="margin-bottom-25 text-uppercase cl-effect-3">
+                                                <a href="#">
+                                                    24/7
+                                                </a>
+                                            </h4>
+                                            <p>
+                                                You can reach us 24/7 from any part of the world and we will be happy to attend to you right away. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-appear="animationBlock2 = true">
+                            <div class="col-sm-6">
+                                <div class="padding-top-40 padding-bottom-40">
+                                    <div class="block">
+                                        <i class="text-red fa fa-shopping-bag fa-3x" ng-class="{'animated fadeInUp': animationBlock2}"></i>
+                                    </div>
+                                    <div ng-class="{'animated fadeInDown': animationBlock2}">
+                                        <div class="margin-top-20">
+                                            <h4 class="margin-bottom-25 text-uppercase cl-effect-3">
+                                                <a href="#">
+                                                    Affordable Price
+                                                </a>
+                                            </h4>
+                                            <p>
+                                                We go beyond just carrying out the tasks, we ensure that it is upto your exactling standards at very nominal prices. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="padding-top-40 padding-bottom-40">
+                                    <div class="block">
+                                        <i class="text-red fa fa-adjust fa-3x" ng-class="{'animated fadeInUp': animationBlock2}"></i>
+                                    </div>
+                                    <div ng-class="{'animated fadeInDown': animationBlock2}">
+                                        <div class="margin-top-20">
+                                            <h4 class="margin-bottom-25 text-uppercase cl-effect-3">
+                                                <a href="#">
+                                                    Recurring &amp; one-time services
+                                                </a>
+                                            </h4>
+                                            <p>
+                                               Recurring services like health, education or rent related could be paid 3, 6, 9 or 12 months in advance.
+											   Other services can be one time payments. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- end: SECTION 2 -->
+    <!-- start: SECTION 3 -->
+    <div id="section-3">
+        <section class="container-fluid container-fullw padding-bottom-30 bg-white no-border section-testimonials">
+            <div class="container">
+                <div class="row padding-bottom-40">
+                    <div class="col-md-12">
+                        <h2 class="center padding-top-30 padding-bottom-30">TESTIMONIALS</h2>
+						<hr>
+                        <div id="testimonial" ng-appear="animationBlock4 = true">
+                            <slick dots=true infinite=false speed=300 slides-to-show=1 slides-to-scroll=1>
+                                <div class="padding-left-50 padding-right-50">
+                                    <div class="testimonial-container center">
+                                        <img src="assets/images/team-1.jpg" class="img-circle testimonial-thumb" alt="" ng-class="{'animated flipInY': animationBlock4}" />
+                                        <p class="testimonial_author" ng-class="{'animated fadeInDown': animationBlock4}">
+                                            Robert Kelley - <span class="author_company text-red">Apple Inc</span>
+                                        </p>
+                                        <h4 class="testimonial-text" ng-class="{'animated fadeInUp': animationBlock4}">Lorem ipsum dolor sit amet, feugiat delicata liberavisse id cum, no quo maiorum intellegebat, liber regione eu sit. Mea cu case ludus integre, vide viderer eleifend ex mea. His ay diceret, cum et atqui placerat.</h4>
+                                    </div>
+                                </div>
+                                <div class="padding-left-50 padding-right-50">
+                                    <div class="testimonial-container center">
+                                        <img src="assets/images/team-2.jpg" class="img-circle testimonial-thumb" alt="" ng-class="{'animated flipInY': animationBlock4}" />
+                                        <p class="testimonial_author" ng-class="{'animated fadeInDown': animationBlock4}">
+                                            William Greeson - <span class="author_company text-red">Microsoft Corporation</span>
+                                        </p>
+                                        <h4 class="testimonial-text" ng-class="{'animated fadeInUp': animationBlock4}">Etiam interdum elementum elit interdum vulputate. Vivamus tristique, dolor ut sodales pulvinar, diam metus facilisis dui, vel pretium ex elit non dui.</h4>
+                                    </div>
+                                </div>
+                                <div class="padding-left-50 padding-right-50">
+                                    <div class="testimonial-container center">
+                                        <img src="assets/images/team-3.jpg" class="img-circle testimonial-thumb" alt="" ng-class="{'animated flipInY': animationBlock4}" />
+                                        <p class="testimonial_author" ng-class="{'animated fadeInDown': animationBlock4}">
+                                            Angela N. Seaton - <span class="author_company text-red">Amazon.com</span>
+                                        </p>
+                                        <h4 class="testimonial-text" ng-class="{'animated fadeInUp': animationBlock4}">Suspendisse mauris nunc, luctus suscipit volutpat sed, sodales non mi. Quisque pretium gravida urna maximus imperdiet. In blandit nisi ipsum.</h4>
+                                    </div>
+                                </div>
+                            </slick>
+                        </div>
+                    </div>
+                </div>
+                <hr class="margin-bottom-40" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="media padding-left-10 padding-right-10">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle testimonial-thumb" src="assets/images/team-6.jpg">
+                            </a>
+                            <div class="media-body ">
+                                <strong>Todd S. Smith</strong> - <strong class="text-red">Amazon.com</strong>
+                                <br>
+                                <small class="text-light">Today 4:55 PM</small>
+                                <div class="well padding-15 margin-top-15">
+                                    In placerat feugiat odio a ullamcorper. Aliquam vel justo vel nisl sollicitudin bibendum. Donec a vehicula risus, a pellentesque metus.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="media padding-left-10 padding-right-10">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle testimonial-thumb" src="assets/images/team-7.jpg">
+                            </a>
+                            <div class="media-body ">
+                                <strong>Leslie M. Day</strong> - <strong class="text-red">Apple Inc</strong>
+                                <br>
+                                <small class="text-light">Today 10:28 AM</small>
+                                <div class="well padding-15 margin-top-15">
+                                    Sed feugiat iaculis dignissim. Nam sed sem a nisl porttitor fermentum nec et ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="media padding-left-10 padding-right-10">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle testimonial-thumb" src="assets/images/team-10.jpg">
+                            </a>
+                            <div class="media-body ">
+                                <strong>Francisco S. Harding</strong> - <strong class="text-red">Apple Inc</strong>
+                                <br>
+                                <small class="text-light">Yesterday 3:52 PM</small>
+                                <div class="well padding-15 margin-top-15">
+                                    Suspendisse vel felis lorem. Phasellus interdum, est ut fringilla tristique, purus arcu congue magna, sit amet ornare neque purus sed nisl.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="media padding-left-10 padding-right-10">
+                            <a href="#" class="pull-left">
+                                <img alt="image" class="img-circle testimonial-thumb" src="assets/images/team-11.jpg">
+                            </a>
+                            <div class="media-body ">
+                                <strong>Manuel Barnhardt</strong> - <strong class="text-red">Microsoft Corporation</strong>
+                                <br>
+                                <small class="text-light">Yesterday 6:11 PM</small>
+                                <div class="well padding-15 margin-top-15">
+                                    Curabitur facilisis pretium cursus. Nulla aliquam mauris ac tortor condimentum, eu tempor ante efficitur. Nunc vestibulum nibh quis dolor scelerisque dapibus eget a est.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<!--
+        <section class="container-fluid container-fullw padding-bottom-30 bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="padding-40 text-center" ng-appear="countTo1 = 8522">
+                            <i class="fa fa-code fa-4x text-red"></i>
+                            <span class="block counter" count-to="{{countTo1}}" value="0" duration="1" filter="number">8522</span>
+                            <hr class="white-line" />
+                            <p class="block text-light">
+                                LINES OF CODE
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="padding-40 text-center" ng-appear="countTo2 = 532">
+                            <i class="fa fa-folder-open fa-4x text-red"></i>
+                            <span class="block counter" count-to="{{countTo2}}" value="0" duration="1" filter="number">532</span>
+                            <hr class="white-line" />
+                            <p class="block text-light">
+                                ANNUAL PROJECTS
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="padding-40 text-center" ng-appear="countTo3 = 118">
+                            <i class="fa fa-line-chart fa-4x text-red"></i>
+                            <div class="block">
+                                <span class="counter" count-to="{{countTo3}}" value="0" duration="1" filter="number">118</span>
+                                <span class="counter-symbol">%</span>
+                            </div>
+                            <hr class="white-line" />
+                            <p class="block text-light">
+                                AVERAGE PROFIT MARKUP
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="padding-40 text-center" ng-appear="countTo4 = 4832">
+                            <i class="fa fa-child fa-4x text-red"></i>
+                            <span class="block counter" count-to="{{countTo4}}" value="0" duration="1" filter="number">4832</span>
+                            <hr class="white-line" />
+                            <p class="block text-light">
+                                SATISFIED CUSTOMERS
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<section class="container-fluid container-fullw padding-bottom-30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">Team Members</h2>
+                        <hr />
+                        <p class="text-center">
+                            Nulla consequat massa quis enim. <strong>Donec pede justo</strong> fringilla vel, aliquet nec, vulputate eget, arcu.
+                            <br>
+                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                        </p>
+                        <div class="row">
+                            <div>
+                                <ul class="team-list list-unstyled">
+                                    <li class="col-xs-6 col-md-3">
+                                        <div>
+                                            <div class="thumb icons-effect margin-bottom-15">
+                                                <img alt="" src="assets/images/team-4.jpg" class="img-responsive img-rounded">
+                                                <div class="mask img-rounded">
+                                                    <div class="icons-wrapper">
+                                                        <div class="icons">
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Micheal Hanson</h3>
+                                            <div class="text-small margin-bottom-5">
+                                                Junior Developer
+                                            </div>
+                                            <div class="team-member-description">
+                                                <p class="text-dark">
+                                                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <strong>Lorem ipsum dolor</strong> sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="col-xs-6 col-md-3">
+                                        <div>
+                                            <div class="thumb icons-effect margin-bottom-15">
+                                                <img alt="" src="assets/images/team-5.jpg" class="img-responsive img-rounded">
+                                                <div class="mask img-rounded">
+                                                    <div class="icons-wrapper">
+                                                        <div class="icons">
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Caroline Garrett</h3>
+                                            <div class="text-small margin-bottom-5">
+                                                Web Editor
+                                            </div>
+                                            <div class="team-member-description">
+                                                <p class="text-dark">
+                                                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <strong>Lorem ipsum dolor</strong> sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="col-xs-6 col-md-3">
+                                        <div>
+                                            <div class="thumb icons-effect margin-bottom-15">
+                                                <img alt="" src="assets/images/team-6.jpg" class="img-responsive img-rounded">
+                                                <div class="mask img-rounded">
+                                                    <div class="icons-wrapper">
+                                                        <div class="icons">
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Wilbert Thomas</h3>
+                                            <div class="text-small margin-bottom-5">
+                                                UI Designer
+                                            </div>
+                                            <div class="team-member-description">
+                                                <p class="text-dark">
+                                                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <strong>Lorem ipsum dolor</strong> sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="col-xs-6 col-md-3">
+                                        <div>
+                                            <div class="thumb icons-effect margin-bottom-15">
+                                                <img alt="" src="assets/images/team-7.jpg" class="img-responsive img-rounded">
+                                                <div class="mask img-rounded">
+                                                    <div class="icons-wrapper">
+                                                        <div class="icons">
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                            <a class="icon" href="#">
+                                                                <span class="fa-stack fa-2x"> <i class="fa fa-circle fa-stack-2x text-red"></i> <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i> </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Kim Logan</h3>
+                                            <div class="text-small margin-bottom-5">
+                                                Project Account Manager
+                                            </div>
+                                            <div class="team-member-description">
+                                                <p class="text-dark">
+                                                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <strong>Lorem ipsum dolor</strong> sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		-->
+    </div>
+    <!-- end: SECTION 3 -->
+    <!-- start: SECTION 4 -->
+    <div id="section-4">
+        <section class="container-fluid container-fullw padding-bottom-50 bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center padding-top-30 padding-bottom-30">FAQ</h2>
+                        <hr />
+						<uib-accordion close-others="oneAtATime" class="accordion bg-red">
+                            <uib-accordion-group is-open="question1.open">
+                                <uib-accordion-heading>
+                                    Why would I need a property management company for my property? <i class="pull-right" ng-class="{'ti-angle-down': question1.open, 'ti-angle-right': !question1.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+                                    A Property management company takes care of all the effort, time and stress involved in managing one's property.
+									It nulls out the drawback of distance for NRIs owning properties in India.
+									With a property management company you manage your property virtually from the comfort of your house.
+                                </p>
+                            </uib-accordion-group>
+                            <uib-accordion-group is-open="question2.open">
+                                <uib-accordion-heading>
+                                    Why would I pick you over my friends and relatives? <i class="pull-right" ng-class="{'ti-angle-down': question2.open, 'ti-angle-right': !question2.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									As we all feel the age old method of falling back on friends and relatives to do the job for you does not work as efficiently in modern times and often causes a rift between relations. Everyone wanted to have their property managed by the subject matter experts.
+									NRIServicesOnline employs qualified personnel to do the homework for you, thus saving your family the trouble and stress of running from pillar to post.
+								</p>
+							</uib-accordion-group>
+                            <uib-accordion-group is-open="question3.open">
+                                <uib-accordion-heading>
+                                    How do I register for the Service ? <i class="pull-right" ng-class="{'ti-angle-down': question3.open, 'ti-angle-right': !question3.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									To register with our company you need to create a login and password, and pay the relevant fees.
+									Our user friendly website will prompt you for a login.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question4.open">
+                                <uib-accordion-heading>
+                                    Where can I get application forms? <i class="pull-right" ng-class="{'ti-angle-down': question4.open, 'ti-angle-right': !question4.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									All services can be registered online on our website.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question5.open">
+                                <uib-accordion-heading>
+                                    Do I have to file application form online? <i class="pull-right" ng-class="{'ti-angle-down': question5.open, 'ti-angle-right': !question5.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									Yes. Application process is done online through our website.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question6.open">
+                                <uib-accordion-heading>
+                                    My parents have the power of attorney? Do I have to get their signature? <i class="pull-right" ng-class="{'ti-angle-down': question6.open, 'ti-angle-right': !question6.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									We need the proof of property ownership to undertake the service.
+									If your parents or other family members have the power to provide those information and authorization, we would obtain it from them.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question7.open">
+                                <uib-accordion-heading>
+                                    Can I make copies of the application forms for filling out and mailing it out? <i class="pull-right" ng-class="{'ti-angle-down': question7.open, 'ti-angle-right': !question7.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									We maintain a paperless application process. Hence it will be mostly via online.
+									We require some supporting documents such as proof of ownership and authorization to perform services to your properties.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question8.open">
+                                <uib-accordion-heading>
+                                    Do I have to notarize the application form? <i class="pull-right" ng-class="{'ti-angle-down': question8.open, 'ti-angle-right': !question8.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									No. The application process is done online.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question9.open">
+                                <uib-accordion-heading>
+                                    What is the registration fee? <i class="pull-right" ng-class="{'ti-angle-down': question9.open, 'ti-angle-right': !question9.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									The fees are associated with service enrollment only.
+								</p>
+                            </uib-accordion-group>
+							<uib-accordion-group is-open="question10.open">
+                                <uib-accordion-heading>
+                                    Do you take credit cards? <i class="pull-right" ng-class="{'ti-angle-down': question10.open, 'ti-angle-right': !question10.open}"></i>
+                                </uib-accordion-heading>
+                                <p>
+									Yes. We honor all major credit cards. Payment can be made through Paypal.
+								</p>
+                            </uib-accordion-group>
+                        </uib-accordion>                        
+						<!--
+                        <p class="text-center">
+                            Nulla consequat massa quis enim. <strong>Donec pede justo</strong> fringilla vel, aliquet nec, vulputate eget, arcu.
+                            <br>
+                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                        </p>
+                        <div class="pricing-table pricing-green">
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <ul class="plan plan1">
+                                    <li class="plan-name">
+                                        Basic
+                                    </li>
+                                    <li class="plan-price">
+                                        <h3> $19 <span class="price-cents">99</span><span class="price-month">/month</span></h3>
+                                    </li>
+                                    <li>
+                                        <strong>5GB</strong> Storage
+                                    </li>
+                                    <li>
+                                        <strong>1GB</strong> RAM
+                                    </li>
+                                    <li>
+                                        <strong>400GB</strong> Bandwidth
+                                    </li>
+                                    <li>
+                                        <strong>10</strong> Email Address
+                                    </li>
+                                    <li>
+                                        <strong>Forum</strong> Support
+                                    </li>
+                                    <li class="plan-action">
+                                        <a href="#" class="btn btn-red btn-lg">
+                                            Signup
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <ul class="plan plan2 featured">
+                                    <li class="plan-name">
+                                        Standard
+                                    </li>
+                                    <li class="plan-price">
+                                        <h3> $29 <span class="price-cents">99</span><span class="price-month">/month</span></h3>
+                                    </li>
+                                    <li>
+                                        <strong>5GB</strong> Storage
+                                    </li>
+                                    <li>
+                                        <strong>1GB</strong> RAM
+                                    </li>
+                                    <li>
+                                        <strong>400GB</strong> Bandwidth
+                                    </li>
+                                    <li>
+                                        <strong>10</strong> Email Address
+                                    </li>
+                                    <li>
+                                        <strong>Forum</strong> Support
+                                    </li>
+                                    <li class="plan-action">
+                                        <a href="#" class="btn btn-red btn-lg">
+                                            Signup
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <ul class="plan plan3">
+                                    <li class="plan-name">
+                                        Advanced
+                                    </li>
+                                    <li class="plan-price">
+                                        <h3> $49 <span class="price-cents">99</span><span class="price-month">/month</span></h3>
+                                    </li>
+                                    <li>
+                                        <strong>50GB</strong> Storage
+                                    </li>
+                                    <li>
+                                        <strong>8GB</strong> RAM
+                                    </li>
+                                    <li>
+                                        <strong>1024GB</strong> Bandwidth
+                                    </li>
+                                    <li>
+                                        <strong>Unlimited</strong> Email Address
+                                    </li>
+                                    <li>
+                                        <strong>Forum</strong> Support
+                                    </li>
+                                    <li class="plan-action">
+                                        <a href="#" class="btn btn-red btn-lg">
+                                            Signup
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <ul class="plan plan4">
+                                    <li class="plan-name">
+                                        Mighty
+                                    </li>
+                                    <li class="plan-price">
+                                        <h3> $99 <span class="price-cents">99</span><span class="price-month">/month</span></h3>
+                                    </li>
+                                    <li>
+                                        <strong>50GB</strong> Storage
+                                    </li>
+                                    <li>
+                                        <strong>8GB</strong> RAM
+                                    </li>
+                                    <li>
+                                        <strong>1024GB</strong> Bandwidth
+                                    </li>
+                                    <li>
+                                        <strong>Unlimited</strong> Email Address
+                                    </li>
+                                    <li>
+                                        <strong>Forum</strong> Support
+                                    </li>
+                                    <li class="plan-action">
+                                        <a href="#" class="btn btn-red btn-lg">
+                                            Signup
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+						-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- end: SECTION 4 -->
+    <!-- start: SECTION 5 -->
+    <div id="section-5">
+        <section class="container-fluid container-fullw padding-bottom-30 section-contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">Contact Us</h2>
+                        <p class="center margin-bottom-50">
+                            Contact our Indian office or speak to any of our respresentatives in your local country.<br>
+							Alternatively, you could also email us on <strong>support@yedupudi.com</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-lg-3">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">India</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<div class="col-lg-3">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">UAE</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<div class="col-lg-3">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">Singapore</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<div class="col-lg-3">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">Malaysia</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<!--
+                    <div class="col-lg-3">
+                        <h4 class="margin-bottom-5 text-red">Get in touch</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus.
+                        </p>
+                    </div>
+					-->
+                </div>
+                <div class="row text-center">
+					<div class="col-lg-4">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">Australia</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<div class="col-lg-4">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">UK</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+					<div class="col-lg-4">
+                        <address>
+                            <h4 class="margin-bottom-5 text-red">US</h4>
+                            1234 Street Name
+                            <br>
+                            City Name, United States
+                            <br>
+                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                        </address>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="mailto:test@email.com" class="btn btn-red margin-top-30">
+                            Subscribe to Our Newsletter
+                        </a>
+                        <p class="margin-top-10">
+                            Or follow us on your favorite social media sites
+                        </p>
+                        <div class="social-icons">
+                            <ul>
+                                <li class="social-twitter" uib-tooltip="Twitter" tooltip-placement="top">
+                                    <a target="_blank" href="#">
+                                        Twitter
+                                    </a>
+                                </li>
+                                <li class="social-linkedin" uib-tooltip="Linkedin" tooltip-placement="top">
+                                    <a target="_blank" href="#">
+                                        Linkedin
+                                    </a>
+                                </li>
+                                <li class="social-facebook" uib-tooltip="Facebook" tooltip-placement="top">
+                                    <a target="_blank" href="#">
+                                        Facebook
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p class="margin-top-20">
+                            &copy; {{app.year}} <span class="text-bold text-uppercase">{{ app.author }}</span>. <span translate="footer.copyright.MESSAGE">All rights reserved</span>
+                            <br>
+                            Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- end: SECTION 5 -->
+</div>
+<!-- end: LANDING PAGE -->

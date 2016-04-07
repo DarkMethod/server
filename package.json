@@ -1,0 +1,37 @@
+{
+  "name": "yedupudi-server-v2",
+  "version": "0.0.1",
+  "main": "server.js",
+  "private": true,
+  "author": {
+    "name": "Rohit Markam",
+    "email": "mrmarkam@gmail.com",
+    "url": "https://github.com/DarkMethod"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cloneextend": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "~4.13.1",
+    "jsonwebtoken": "^5.7.0",
+    "memoizee": "0.2.6",
+    "morgan": "^1.7.0",
+    "mysql": ">= 0.2.x",
+    "nan": "^2.2.1",
+    "node-uuid": "^1.4.7",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.0",
+    "passport-google-plus": "^0.5.1",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": ">= 0.10",
+    "npm": ">= 1.2"
+  },
+  "scripts": {
+    "start": "SET NODE_ENV=production&& nodemon server.js",
+    "test": "SET NODE_ENV=development&& nodemon server.js"
+  }
+}
