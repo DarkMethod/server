@@ -1,19 +1,15 @@
 exports.init = function init(){
     var router  = require('./router')
         , middleware  = require('./middleware')
-        , express = require('express')
+		, express = require('express')
+		, jwt = require('express-jwt')
         , app     = express()
-        , conf    = require('./conf').get(process.env.NODE_ENV);
-        /*
-		, auth = express.basicAuth(function(username, password) {
-            var cipher = crypto.createCipher('aes-256-cbc', conf.application.salt);
-            cipher.update(password, 'utf8', 'base64');
-            return ((cipher.final('base64') === conf.application.password) && username === conf.application.username );
-        }, conf.application.realm);
-		*/
+        , conf    = require('./conf').get(process.env.NODE_ENV)
+		, auth = jwt({secret: conf.application.jwtSecret, userProperty: 'payload'});;
+        
 
     middleware.setup(app, conf);
-    router.run( app, conf.application.routes);
+    router.run( app, auth, conf.application.routes);
 
     app.listen(conf.server.port);
     console.log('Yedupudi-server pid %s listening on %d in %s',process.pid,conf.server.port,process.env.NODE_ENV);

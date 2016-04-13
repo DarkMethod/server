@@ -10,11 +10,14 @@
         <p class="text-center text-dark text-bold text-extra-large margin-top-15">
             Sign Up
         </p>
-        <p class="text-center">
-            Enter your personal details below:
-        </p>
         <!-- start: REGISTER BOX -->
         <div class="box-register" ng-controller="authCtrl">
+			<div class=" text-red text-center">
+				{{message}}
+			</div>
+			<p class="text-center">
+				Enter your personal details below:
+			</p>
             <form class="form-register" name ="Form" ng-submit="signUp()" novalidate>
                 <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid, 'has-success':Form.name.$valid}">
                     <input type="text" class="form-control" name="name" ng-model="user.name" placeholder="Name*" required>
@@ -65,8 +68,8 @@
 				</div>
                 <div class="form-group" ng-class="{'has-error': Form.agrmntStatus.$dirty && Form.agrmntStatus.$invalid, 'has-success':Form.agrmntStatus.$valid}">
                     <div class="checkbox clip-check check-primary">
-                        <input type="checkbox" id="agree" ng-model="user.agrmnStatus" value="agree" required="">
-                        <label for="agree">
+                        <input type="checkbox" id="agrmntStatus" name="agrmntStatus" ng-model="user.agrmntStatus" value=1 required="">
+                        <label for="agrmntStatus">
                             I agree*
                         </label>
                     </div>
@@ -74,7 +77,7 @@
                 <div class="form-actions">
                     <p class="text-center">
                         Already have an account?
-                        <a ui-sref="login.signin">
+                        <a ui-sref="login.login">
                             Log-in
                         </a>
                     </p>
@@ -86,16 +89,18 @@
                 <p class="margin-top-10 text-center">
                     Or sign up with a social network
                 </p>
-                <div class="social-icons text-center">
+                <div class="social-icons text-center" ng-controller="authCtrl">
                     <ul>
+						<!--
                         <li class="social-twitter" uib-tooltip="Twitter" tooltip-placement="top">
-                            <a target="_blank" href="#"> Twitter </a>
+                            <a target="_blank" href="#" ng-click="socialSignUp('twitter')"> Twitter </a>
                         </li>
+						-->
                         <li class="social-google" uib-tooltip="Google" tooltip-placement="top">
-                            <a target="_blank" href="#"> Google </a>
+                            <a ng-click="authenticate('google')"> Google </a>
                         </li>
                         <li class="social-facebook" uib-tooltip="Facebook" tooltip-placement="top">
-                            <a target="_blank" href="#"> Facebook </a>
+                            <a ng-click="authenticate('facebook')"> Facebook </a>
                         </li>
                     </ul>
                 </div>

@@ -1,78 +1,324 @@
+var uuid = require('node-uuid');
 var crypto = require('crypto');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var base64url = require('base64url');
+var request = require('request');
+var nodemailer = require("nodemailer");
+var jwt = require('jsonwebtoken');
+var conf    = require('../../core/conf').get(process.env.NODE_ENV);
 
-var logAndRespond = function logAndRespond(err,res,status){
+var logAndRespond = function logAndRespond(err, res, status){
     console.error(err);
-    res.statusCode = ('undefined' === typeof status ? 500 : status);
-    res.send({
-        result: 'error',
-        err:    err.code
-    });
-};
-var handleConnection = function handleConnection(callback,req,res){
-    req.mysql.getConnection(function(err,connection){
-        if (err){ logAndRespond(err,res); return; }
-        callback(connection,req,res);
-    });
-};
-var hasher = function(password, salt){
-	console.log(password);
-	console.log(salt);
-	var hash = crypto.pbkdf2Sync(password, salt, 1000, 64).toString('hex');
-	return hash;
+	return res.status(500).send({message :	err.message});
 };
 
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-	passReqToCallback : true,
-    session: false
-  },
-   function(req,username, password, done) {
-		 req.mysql.getConnection(function(err,connection){
-			if (err){ logAndRespond(err,res); return; }
-			connection.query('SELECT * FROM user WHERE email = ?', username,function(err,rows){
-			if (err)
-                return done(err);
-			 if (!rows.length) {
-				
-                return done(null, false, { message: 'Incorrect email address.'});
-            } 
-			
-			var salt = rows[0].salt;
-	
-            if (!( rows[0].hash == crypto.pbkdf2Sync(password, salt, 1000, 64).toString('hex'))){
-				return done(null, false, { message: 'Incorrect password.'});
-			}
-            return done(null, rows[0]);			
-		});
-			
-    });
-         ;
-    }
-));
-
-function loginCheck(connection, req, res){
-  passport.authenticate('local', function(err, user, info){
-    if(err){ logAndRespond(err,res); return; }
-
-    if(user){
-	  console.log('success');	
-      // return res.json({message: 'yay'});
-    } else {
-      console.log('failed');
-	  // return res.json({message: 'failed'});
-    }
-  })(req, res);
-}
-
-exports.setPassword = function(password){
+var generateJWT = function(user){
+	var today = new Date();
+	var exp = new Date(today);
+	exp.setDate(today.getDate() + 60);
+	return jwt.sign({
+	uuid: user.uuid,
+	email: user.email,
+	name: user.name,
+	exp: parseInt(exp.getTime() /1000),
+	}, conf.application.jwtSecret);
+ };
+ 
+var setPassword = function(password){
 	var cipher = {};
+	
 	cipher.salt = crypto.randomBytes(16).toString('hex');
 	cipher.hash = crypto.pbkdf2Sync(password, cipher.salt, 1000, 64).toString('hex');
+	
 	return cipher;
 };
 
-exports.login = function(req,res){
-    handleConnection(loginCheck,req,res);
+var randomStringAsBase64Url = function (size) {
+  return base64url(crypto.randomBytes(size));
+};
+
+var sendMail = function(mail, callback){
+	var smtpTransport = nodemailer.createTransport(conf.mailer.smtp);
+	
+	var mailOptions={
+        to : mail.to,
+        subject : mail.subject,
+        html : mail.html 
+    }
+	
+	smtpTransport.sendMail(mailOptions, function(error, response){
+     if(error){
+           callback(error);
+     }else{
+            error = false;
+            status = true;
+			callback(error, status);
+         }
+	});
+};
+
+/***	Handler Functions	***/
+
+exports.signupHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT * FROM user WHERE email= ?', req.body.email, function (err, rows) {
+			if (err){ logAndRespond(err, res); return; }
+			if(rows.length){
+				connection.release();
+				return res.status(409).send({ message: 'Email is already taken' });
+			}
+			
+			var user = {};
+			var cipher = setPassword(req.body.password);
+			user.name = req.body.name;
+			user.email = req.body.email;
+			user.uuid = uuid.v4();
+			user.salt = cipher.salt;
+			user.hash = cipher.hash;
+			user.verifyEmailToken = crypto.randomBytes(16).toString('hex');;
+			user.verifyEmailExpires = Date.now() + 3600000; // 1 hr
+			
+			connection.query('INSERT INTO user SET ?', user, function (err) {
+				if (err){ logAndRespond(err, res); return; }
+				
+				var message = {};
+				message.to = user.email;
+				message.subject = 'Activate your Yedupudi account';
+				message.html = "Hello there,<br> Thanks for registering with Yedupudi.<br>Click on the following link to activate your account.<br><a href="+conf.mailer.verifyEmailLink+user.verifyEmailToken+">Activate my account</a><br>Cheers,<br>TEAM Yedupudi";
+				
+				sendMail(message, function(err, sent){
+					if(err){ logAndRespond(err, res); return; }
+					if(sent){
+						connection.release();
+						return res.status(200).send();	
+					}
+				});	
+			});
+		});
+	});
+};
+
+exports.forgotPasswordHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT uuid FROM user WHERE email= ?', req.body.email, function(err, rows) {
+			if (err){ logAndRespond(err, res); return; }
+			if(!rows.length){
+				connection.release();
+				return res.status(404).send();
+			}
+			
+			var user = {};
+			user.resetPasswordToken = crypto.randomBytes(16).toString('hex');
+			user.resetPasswordExpires = Date.now() + 3600000; // 1 hr
+			
+			connection.query('UPDATE user SET ? WHERE uuid='+connection.escape(rows[0].uuid), user, function(err) {
+				if (err){ logAndRespond(err, res);  console.log('here'); return; }
+				
+				var message = {};
+				message.to = req.body.email;
+				message.subject = 'Reset your Yedupudi password';
+				message.html = "Hello there,<br> We had received a password reset request for your Yedupudi account.<br>Click on the following link to reset your password.<br><a href="+conf.mailer.resetPasswordLink+user.resetPasswordToken+">Reset password</a><br>Cheers,<br>Team Yedupudi";
+				
+				sendMail(message, function(err, sent){
+					if(err){ logAndRespond(err, res); return; }
+					if(sent){
+						connection.release();
+						return res.status(200).send();	
+					}
+				});	
+			});
+		});
+	});
+};
+
+exports.loginHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT * FROM user WHERE email= ?', req.body.email, function (err, rows) {
+			if (err){ logAndRespond(err, res); return; }
+			if(!rows.length){
+				connection.release();
+				return res.status(401).send();
+			}
+			var user = {};
+			var salt = rows[0].salt;
+			var hash = rows[0].hash;
+			user.name = rows[0].name;
+			user.email = rows[0].email;
+			user.uuid = rows[0].uuid;
+			
+			if (!( hash === crypto.pbkdf2Sync(req.body.password, salt, 1000, 64).toString('hex'))){
+				connection.release();
+				return res.status(401).send();
+			}
+			connection.release();
+			return res.status(200).send({ token: generateJWT(user) });
+		});
+	});	
+};
+
+exports.googleHandler = function(req, res){
+	var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token';
+	var peopleApiUrl = 'https://www.googleapis.com/plus/v1/people/me/openIdConnect';
+	var params = {
+		code: req.body.code,
+		client_id: req.body.clientId,
+		client_secret: conf.googleAuth.clientSecret,
+		redirect_uri: req.body.redirectUri,
+		grant_type: 'authorization_code'
+	};
+
+	// Step 1. Exchange authorization code for access token.
+	request.post(accessTokenUrl, { json: true, form: params }, function(err, response, token) {
+		var accessToken = token.access_token;
+		var headers = { Authorization: 'Bearer ' + accessToken };
+
+    // Step 2. Retrieve profile information about the current user.
+    request.get({ url: peopleApiUrl, headers: headers, json: true }, function(err, response, profile) {
+		if (profile.error) {
+			return res.status(500).send({message: profile.error.message});
+		}
+        // Step 3b. Create a new user account or return an existing one.
+		req.mysql.getConnection(function(err, connection){
+			if (err){ logAndRespond(err, res); return; }
+			connection.query('SELECT uuid,email,name FROM user WHERE googleId = ?', profile.sub, function(err, rows) {
+				if (err){ logAndRespond(err, res); return; }
+				if (!rows.length) {
+					var user = {};
+					user.uuid    = uuid.v4();
+					user.googleId = profile.sub;
+					user.name = profile.name;
+					user.email = profile.email;
+					
+					connection.query('INSERT INTO user SET ?', user, function(err) {
+						if (err){ logAndRespond(err, res); return; }
+						connection.release();
+						return res.status(200).send({ token: generateJWT(user) });	
+					});
+				}
+				else {
+					connection.release();
+					return res.status(200).send({ token: generateJWT(rows[0]) });
+				}	
+			});	
+		});
+    });
+  });
+};
+exports.facebookHandler = function(req, res) {
+  var fields = ['id', 'email', 'name'];
+  var accessTokenUrl = 'https://graph.facebook.com/v2.5/oauth/access_token';
+  var graphApiUrl = 'https://graph.facebook.com/v2.5/me?fields=' + fields.join(',');
+  var params = {
+    code: req.body.code,
+    client_id: req.body.clientId,
+    client_secret: conf.facebookAuth.clientSecret,
+    redirect_uri: req.body.redirectUri
+  };
+
+  // Step 1. Exchange authorization code for access token.
+  request.get({ url: accessTokenUrl, qs: params, json: true }, function(err, response, accessToken) {
+    if (response.statusCode !== 200) {
+      return res.status(500).send({ message: accessToken.error.message });
+    }
+
+    // Step 2. Retrieve profile information about the current user.
+    request.get({ url: graphApiUrl, qs: accessToken, json: true }, function(err, response, profile) {
+      if (response.statusCode !== 200) {
+        return res.status(500).send({ message: profile.error.message });
+      }
+      req.mysql.getConnection(function(err, connection){
+			if (err){  throw err; }
+			connection.query('SELECT uuid,email,name FROM user WHERE facebookId = ?', profile.id, function(err, rows) {
+				if (err){ logAndRespond(err, res); return; }
+				if (!rows.length) {
+					var user = {};
+					user.uuid    = uuid.v4();
+					user.facebookId = profile.id;
+					user.name = profile.name;
+					user.email = profile.email;
+					
+					connection.query('INSERT INTO user SET ?', user, function(err) {
+						if (err){ logAndRespond(err, res); return; }
+						connection.release();
+						return res.status(200).send({ token: generateJWT(user) });	
+					});
+				}
+				else { 
+					connection.release();
+					return res.status(200).send({ token: generateJWT(rows[0]) });
+				}	
+			});	
+		});
+    });
+  });
+};
+
+exports.verifyEmailHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT uuid FROM user WHERE verifyEmailToken= ? AND verifyEmailExpires> ?', [req.params.token, Date.now()], function (err, rows) {
+			if (err){ logAndRespond(err, res); return; }
+			if(rows.length){
+				var user = { active : 1 };
+				connection.query('UPDATE user SET ? WHERE uuid='+connection.escape(rows[0].uuid), user, function (err) {
+					if (err){ logAndRespond(err, res); return; }
+					connection.release();
+					return res.redirect('/#/login/login/verified');
+				});	
+			}
+			else{
+				connection.query('DELETE FROM user WHERE verifyEmailToken= ? AND verifyEmailExpires< ? AND active= ?', [req.params.token, Date.now(), 0], function (err) {
+					if (err){ logAndRespond(err, res); return; }
+					connection.release();
+					return res.redirect('/#/login/registration/expired');
+				});	
+			}	
+		});
+	});
+};
+
+exports.resetPasswordHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT uuid FROM user WHERE resetPasswordToken= ? AND resetPasswordExpires> ?', [req.params.token, Date.now()], function (err, rows) {
+			if (err){ logAndRespond(err, res); return; }
+			if(rows.length){
+				connection.release();
+				return res.redirect('/#/login/reset/'+req.params.token);	
+			}
+			else{
+				connection.release();
+				return res.redirect('/#/login/forgot/invalid');
+			}		
+		});
+	});
+};
+
+exports.updatePasswordHandler = function(req, res){
+	req.mysql.getConnection(function(err, connection){
+		if (err){ logAndRespond(err, res); return; }
+		connection.query('SELECT * FROM user WHERE resetPasswordToken= ? AND resetPasswordExpires> ?', [req.params.token, Date.now()], function (err, rows) {
+			if (err){ logAndRespond(err, res); return;}
+			if(rows.length){
+				var user = {};
+				var cipher = setPassword(req.body.password);
+				user.salt = cipher.salt;
+				user.hash = cipher.hash;
+				user.resetPasswordToken = '';
+				user.resetPasswordExpires = '';
+				
+				connection.query('UPDATE user SET ? WHERE uuid='+connection.escape(rows[0].uuid), user, function (err) {
+					if (err){ logAndRespond(err, res); console.log('here'); return; }
+					connection.release();
+					return res.status(200).send({ token :	generateJWT(rows[0]) });
+				});		
+			}
+			else{
+				connection.release();
+				return res.redirect('/#/login/forgot/invalid');
+			}		
+		});
+	});
 };

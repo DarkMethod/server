@@ -1,6 +1,3 @@
-var uuid = require('node-uuid');
-var helper = require("./helper");
-
 var logAndRespond = function logAndRespond(err,res,status){
     console.error(err);
     res.statusCode = ('undefined' === typeof status ? 500 : status);
@@ -9,6 +6,7 @@ var logAndRespond = function logAndRespond(err,res,status){
         err:    err.code
     });
 };
+ 
 var handleConnection = function handleConnection(callback,req,res){
     req.mysql.getConnection(function(err,connection){
         if (err){ logAndRespond(err,res); return; }
@@ -54,8 +52,6 @@ function handleIns(connection,req,res) {
 	req.body.uuid = uuid.v4();
 	req.body.salt = cipher.salt;
 	req.body.hash = cipher.hash;
-	console.log(cipher.hash);
-	console.log(req.body);
 	
     connection.query('INSERT INTO user SET ?', req.body, function handleSql(err, result) {
         if (err){ logAndRespond(err,res); return; }

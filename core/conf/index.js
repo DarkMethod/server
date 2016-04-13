@@ -3,11 +3,9 @@ var tool = require('cloneextend'),
     conf.production = {
         application:    {
             errorHandler: {},
-            //username    : 'demo',
-            //password    : 'Que62msjiDU0b2yYvi2zbavw' // bEdESpuGU3rewasaphEfaKedR7r=M#fU
         },
         server:         {
-            port        : '80'
+            port        : '8080'
         },
 		db:             {
             mysql:          {
@@ -19,6 +17,29 @@ var tool = require('cloneextend'),
         },
 		frontend:		{
 			folders		: ['../','../dist',]
+		},
+		facebookAuth:	{
+			clientID      : '1590813454568088', 
+			clientSecret  : 'fafc91c338b3246f0f13983118c9752c', 
+			callbackURL   : 'http://localhost:3000/auth/facebook/callback'
+		},
+		googleAuth:	    {
+			clientID      : '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com',
+			clientSecret  : '3qGx6U7yG8CO5lDczrPVMIQo',
+			callbackURL   : 'http://127.0.0.1:3000/auth/google/callback'
+		},
+		mailer:			{
+			smtp		: {
+							host: 'smtp.gmail.com',
+							port: 465,
+							secure: true, // use SSL
+							auth: {
+									user: 'mrmarkam@gmail.com',
+									pass: 'taking it all'
+								}
+							},
+			verifyEmailLink	: 'http://localhost:3000/auth/verify/',
+			resetPasswordLink	: 'http://localhost:3000/auth/reset/'	
 		}
     };
     conf.development = {
@@ -35,14 +56,34 @@ var tool = require('cloneextend'),
         },
 		frontend:		{
 			folders		: ['../../client_v2','../../client_v2/LAYOUT-2']
+		},
+		facebookAuth:	{
+			clientID      : '1590813454568088', 
+			clientSecret  : 'fafc91c338b3246f0f13983118c9752c', 
+			callbackURL   : 'http://localhost:3000/auth/facebook/callback'
+		},
+		googleAuth:	    {
+			clientID      : '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com',
+			clientSecret  : '3qGx6U7yG8CO5lDczrPVMIQo',
+			callbackURL   : 'http://127.0.0.1:3000/auth/google/callback'
+		},
+		mailer:			{
+			smtp		: {
+							host: 'smtp.gmail.com',
+							port: 465,
+							secure: true, // use SSL
+							auth: {
+									user: 'mrmarkam@gmail.com',
+									pass: 'taking it all'
+								}
+							},
+			verifyEmailLink	: 'http://localhost:3000/auth/verify/',
+			resetPasswordLink	: 'http://localhost:3000/auth/reset/'	
 		}
     };
     conf.defaults = {
         application:    {
-            salt        : '1234567890QWERTY',
-            username    : 'clangton',
-            password    : 'GR+adJAdWOxFQMLFHAWPig==',
-            realm       : 'Authenticated',
+            jwtSecret   : 'SAOIRSE',
             routes      : ['user'],
             middleware  : ['compress','json','urlencoded','logger']
         },

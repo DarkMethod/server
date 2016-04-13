@@ -68028,7 +68028,8 @@ angular.module("packet", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',
-	'FBAngular'
+	'FBAngular',
+	'satellizer'
 ]);
 var app = angular.module('app', ['packet']);
 app.run(['$rootScope', '$state', '$stateParams',
@@ -68069,11 +68070,13 @@ function ($rootScope, $state, $stateParams) {
         layout: ''
     };
     $rootScope.app.layout = angular.copy($rootScope.app.defaultLayout);
-    $rootScope.user = {
+    /*
+	$rootScope.user = {
         name: 'Peter',
         job: 'ng-Dev',
         picture: 'app/img/user/02.jpg'
     };
+	*/
 }]);
 // translate config
 app.config(['$translateProvider',
@@ -68097,6 +68100,17 @@ function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy('sanitize');
 
 }]);
+app.config(function($authProvider) {
+
+    $authProvider.google({
+      clientId: '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com'
+    });
+	
+	$authProvider.facebook({
+      clientId: '1590813454568088'
+    });
+	
+});	
 // Angular-Loading-Bar
 // configuration
 app.config(['cfpLoadingBarProvider',
@@ -68224,6 +68238,7 @@ app.constant('JS_REQUIRES', {
         //*** Controllers
         'dashboardCtrl': 'assets/js/controllers/dashboardCtrl.js',
         'authCtrl': 'assets/js/controllers/authCtrl.js',
+        'interceptCtrl': 'assets/js/controllers/interceptCtrl.js',
         'iconsCtrl': 'assets/js/controllers/iconsCtrl.js',
         'vAccordionCtrl': 'assets/js/controllers/vAccordionCtrl.js',
         'ckeditorCtrl': 'assets/js/controllers/ckeditorCtrl.js',
@@ -68318,6 +68333,9 @@ app.constant('JS_REQUIRES', {
     }, {
         name: 'angularSpectrumColorpicker',
         files: ['../bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js']
+    }, {
+        name: 'satellizer',
+        files: ['../bower_components/satellizer.min.js']
     }]
 });
 'use strict';
@@ -68353,8 +68371,12 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     $stateProvider.state('app', {
         url: "/app",
         templateUrl: "assets/views/app.html",
-        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl'),
-        abstract: true
+        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl', 'auth', 'authCtrl'),
+		onEnter:['$state', '$auth',function($state, $auth){
+				if(!$auth.isAuthenticated()){
+					$state.go('login.login');
+				}}],
+		abstract: true
     }).state('app.dashboard', {
         url: "/dashboard",
         templateUrl: "assets/views/dashboard.html",
@@ -68789,20 +68811,27 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	    url: '/login',
 	    template: '<div ui-view class="fade-in-right-big smooth"></div>',
 	    abstract: true
-	}).state('login.signin', {
-	    url: '/signin',
-	    templateUrl: "assets/views/login_login.html"
+	}).state('login.login', {
+	    url: '/login/:status',
+	    templateUrl: "assets/views/login_login.html",
+		resolve: loadSequence('authCtrl')
 	}).state('login.forgot', {
-	    url: '/forgot',
-	    templateUrl: "assets/views/login_forgot.html"
+	    url: '/forgot/:status',
+	    templateUrl: "assets/views/login_forgot.html",
+		resolve: loadSequence('authCtrl')
+	}).state('login.reset', {
+	    url: '/reset/:token',
+	    templateUrl: "assets/views/login_reset.html",
+		resolve: loadSequence('authCtrl')
 	}).state('login.registration', {
-	    url: '/registration',
+	    url: '/registration/:status',
 	    templateUrl: "assets/views/login_registration.html",
-		resolve: loadSequence('auth','authCtrl')
+		resolve: loadSequence('authCtrl')
 	}).state('login.lockscreen', {
 	    url: '/lock',
 	    templateUrl: "assets/views/login_lock_screen.html"
 	})
+
 
 	// Landing Page route
 	.state('landing', {
@@ -68813,7 +68842,9 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	}).state('landing.welcome', {
 	    url: '/welcome',
 	    templateUrl: "assets/views/landing_page.html"
-	});
+	})
+		
+		
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {
         var _args = arguments;
@@ -70705,25 +70736,32 @@ app.factory('auth',['$http','$window','$state',function($http,$window,$state){
 		if(auth.isLoggedIn()){
 			var token = auth.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
-			return payload._id;
+			return payload.uuid;
 		}
 	};
 	
 	auth.signUp = function(user){
-		return $http.post('/signup', user).success(function(data){
+		delete user.password2;
+		return $http.post('/register', user).success(function(data){
 			auth.saveToken(data.token);
 		});
 	};
 	
-	auth.logIn = function(user){
-		return $http.post('/login', user).success(function(data){
+	auth.signIn = function(user){
+		return $http.post('/auth/local', user).success(function(data){
 		auth.saveToken(data.token);
 		});
 	};
 	
-	auth.logOut = function(){
-		$window.localStorage.removeItem('hoot-token');
-		$state.go('login');
+	auth.socialSignUp = function(provider){
+		return $http.get('/auth/'+provider).success(function(data){
+		auth.saveToken(data.token);
+		});
+	};
+	
+	auth.signOut = function(){
+		$window.localStorage.removeItem('token');
+		$state.go('login.signin');
 	};
 	
 	return auth;

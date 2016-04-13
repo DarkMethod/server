@@ -26,25 +26,32 @@ app.factory('auth',['$http','$window','$state',function($http,$window,$state){
 		if(auth.isLoggedIn()){
 			var token = auth.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
-			return payload._id;
+			return payload.uuid;
 		}
 	};
 	
 	auth.signUp = function(user){
-		return $http.post('/signup', user).success(function(data){
+		delete user.password2;
+		return $http.post('/register', user).success(function(data){
 			auth.saveToken(data.token);
 		});
 	};
 	
-	auth.logIn = function(user){
-		return $http.post('/login', user).success(function(data){
+	auth.signIn = function(user){
+		return $http.post('/auth/local', user).success(function(data){
 		auth.saveToken(data.token);
 		});
 	};
 	
-	auth.logOut = function(){
-		$window.localStorage.removeItem('hoot-token');
-		$state.go('login');
+	auth.socialSignUp = function(provider){
+		return $http.get('/auth/'+provider).success(function(data){
+		auth.saveToken(data.token);
+		});
+	};
+	
+	auth.signOut = function(){
+		$window.localStorage.removeItem('token');
+		$state.go('login.signin');
 	};
 	
 	return auth;

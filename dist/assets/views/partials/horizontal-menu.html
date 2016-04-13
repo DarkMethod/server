@@ -296,7 +296,7 @@
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right" ng-controller='authCtrl'>
 			<li class="dropdown" uib-dropdown>
 				<a href="#" class="dropdown-toggle nav-user-wrapper" data-toggle="dropdown" uib-dropdown-toggle> <img alt="" src="assets/images/avatar-1.jpg"> <span>Peter Clark</span> <span class="caret"></span> </a>
 
@@ -315,7 +315,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a ui-sref="login.signin" translate="topbar.user.LOGOUT"> Log Out </a>
+						<a ng-click ='signOut()'  translate="topbar.user.LOGOUT"> Log Out </a>
 					</li>
 				</ul>
 			</li>
