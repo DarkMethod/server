@@ -181,6 +181,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "8 Feb,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15" 
 		}
 	},{
 		"id": 2,
@@ -192,6 +195,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "5 Jul,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 3,
@@ -203,6 +209,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "10 Mar,15",
 		"sta": "In Progress",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 4,
@@ -214,6 +223,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "12 Oct,15",
 		"sta": "On Hold",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 5,
@@ -225,6 +237,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "15 Apr,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 6,
@@ -236,6 +251,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "12 Jan,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 7,
@@ -247,6 +265,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "15 Dec,15",
 		"sta": "On Hold",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 8,
@@ -258,6 +279,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "25 Jun,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 9,
@@ -269,6 +293,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "18 Fec,15",
 		"sta": "In Progress",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 10,
@@ -280,6 +307,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "1 Jan,16",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{	
 		"id": 11,
@@ -291,6 +321,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "13 Aug,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 12,
@@ -302,6 +335,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "12 Dec,15",
 		"sta": "On Hold",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 13,
@@ -313,6 +349,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "4 Nov,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	},{
 		"id": 14,
@@ -324,6 +363,9 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
 		"end": "25 Jan,15",
 		"sta": "Complete",
 		"upd":{
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			"by"  : "Jeremy", 
+			"on"  : "5 Feb,15"
 		}
 	}
 	/*

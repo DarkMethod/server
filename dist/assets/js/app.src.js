@@ -68753,6 +68753,10 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     }).state('app.pages.messages', {
         url: '/messages',
         templateUrl: "assets/views/pages_messages.html",
+		 title: 'Messages',
+        ncyBreadcrumb: {
+            label: 'Messages'
+        },
         resolve: loadSequence('inboxCtrl')
     }).state('app.pages.messages.inbox', {
         url: '/inbox/:inboxID',
