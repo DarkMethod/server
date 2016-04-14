@@ -9,7 +9,7 @@ var tool = require('cloneextend'),
         },
 		db:             {
             mysql:          {
-                host        : 'http://52.34.0.42/',
+                host        : '127.0.0.1',
                 user        : 'root',
                 password    : 'swah1l1',
                 database    : 'yedupudi'
