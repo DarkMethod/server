@@ -70920,7 +70920,7 @@ app.controller('authCtrl', [
 		
 		$scope.signOut = function(){
 			$auth.logout();
-			$state.go('login.login');
+			$state.go('landing.welcome');
 		};	
 }])
 'use strict';
