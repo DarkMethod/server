@@ -1,11 +1,14 @@
 <!-- start: BREADCRUMB -->
 <div class="breadcrumb-wrapper">
-    <h4 class="mainTitle no-margin" translate="sidebar.nav.tables.DATA">NGTABLE</h4>
-
+    <h4 class="mainTitle no-margin" translate="dashboard.WELCOME" translate-values="{ appName: app.name }"><!-- NGTABLE -->WELCOME TO DASHBOARD</h4>
+	<span class="mainDescription">overview &amp; stats </span>
+	<!--translate="sidebar.nav.tables.DATA"-->
     <div ncy-breadcrumb class="pull-right"></div>
 </div>
 <!-- end: BREADCRUMB -->
+<!--
 <!-- start: SIMPLE TABLE WITH PAGINATION -->
+<!--
 <div class="container-fluid container-fullw">
     <div class="row">
         <div class="col-md-12">
@@ -13,7 +16,7 @@
                 <div class="panel-body">
                     <h5 class="over-title margin-bottom-15">Simple table <span class="text-bold">with pagination</span></h5>
                     <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                    <div ng-controller="ngTableCtrl">
+					<!--<div ng-controller="ngTableCtrl">
                         <p>
                             <strong>Page:</strong> {{tableParams.page()}}
                         </p>
@@ -34,16 +37,18 @@
         </div>
     </div>
 </div>
+-->
 <!-- end: SIMPLE TABLE WITH PAGINATION -->
 <!-- start: PAGINATION TEMPLATE -->
+<!--
 <div class="container-fluid container-fullw">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-white">
                 <div class="panel-body">
                     <h5 class="over-title margin-bottom-15">Pagination <span class="text-bold">template</span></h5>
-                    <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                    <div ng-controller="ngTableCtrl">
+                   <!-- /// controller:  'ngTableCtrl' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <!--<div ng-controller="ngTableCtrl">
                         <p>
                             <strong>Page:</strong> {{tableParams.page()}}
                         </p>
@@ -82,8 +87,10 @@
         </div>
     </div>
 </div>
+-->
 <!-- end: PAGINATION TEMPLATE -->
 <!-- start: TABLE WITH SORTING -->
+<!--
 <div class="container-fluid container-fullw">
     <div class="row">
         <div class="col-md-12">
@@ -91,7 +98,7 @@
                 <div class="panel-body">
                     <h5 class="over-title margin-bottom-15">Table <span class="text-bold">with sorting</span></h5>
                     <!-- /// controller:  'ngTableCtrl2' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                    <div ng-controller="ngTableCtrl2">
+                <!--<div ng-controller="ngTableCtrl2">
                         <div class="row margin-bottom-10">
                             <div class="col-md-12">
                                 <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
@@ -114,8 +121,10 @@
         </div>
     </div>
 </div>
+-->
 <!-- end: TABLE WITH SORTING -->
 <!-- start: TABLE WITH FILTERS -->
+<!--
 <div class="container-fluid container-fullw">
     <div class="row">
         <div class="col-md-12">
@@ -123,7 +132,7 @@
                 <div class="panel-body">
                     <h5 class="over-title margin-bottom-15">Table <span class="text-bold">with filters</span></h5>
                     <!-- /// controller:  'ngTableCtrl3' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                    <div ng-controller="ngTableCtrl3">
+                <!--    <div ng-controller="ngTableCtrl3">
                         <strong>Filter:</strong> {{tableParams.filter()|json}}
                         <table ng-table="tableParams" show-filter="true" class="table table-striped">
                             <tr ng-repeat="user in $data">
@@ -139,8 +148,10 @@
         </div>
     </div>
 </div>
+-->
 <!-- end: TABLE WITH FILTERS -->
 <!-- start: CELL AND ROW TEMPLATE -->
+<!--
 <div class="container-fluid container-fullw">
     <div class="row">
         <div class="col-md-12">
@@ -152,7 +163,7 @@
                             <div class="panel panel-white">
                                 <div class="panel-body">
                                     <!-- /// controller:  'ngTableCtrl4' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                                    <div ng-controller="ngTableCtrl4">
+                                 <!--   <div ng-controller="ngTableCtrl4">
                                         <div class="row margin-bottom-10">
                                             <div class="col-md-12">
                                                 <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
@@ -176,7 +187,7 @@
                             <div class="panel panel-white">
                                 <div class="panel-body">
                                     <!-- /// controller:  'ngTableCtrl5' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
-                                    <div ng-controller="ngTableCtrl5">
+                                <!--    <div ng-controller="ngTableCtrl5">
                                         <div class="row margin-bottom-10">
                                             <div class="col-md-12">
                                                 <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
@@ -201,6 +212,7 @@
         </div>
     </div>
 </div>
+-->
 <!-- end: CELL AND ROW TEMPLATE -->
 <!-- start: INLINE EDIT EXAMPLE -->
 <div class="container-fluid container-fullw">
@@ -208,30 +220,35 @@
         <div class="col-md-12">
             <div class="panel panel-white">
                 <div class="panel-body">
-                    <h5 class="over-title margin-bottom-15">Inline <span class="text-bold">edit example</span></h5>
+                    <h5 class="over-title margin-bottom-15"><!--Inline --> <span class="text-bold"><!--edit example-->Tasks</span></h5>
                     <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
                     <div ng-controller="ngTableCtrl6">
-                        <div class="row margin-bottom-10">
+                        <!--
+						<div class="row margin-bottom-10">
                             <div class="col-md-12">
                                 <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">
                                     Clear sorting
                                 </button>
                             </div>
                         </div>
-                        <strong>Sorting:</strong> {{tableParams.sorting()|json}}
-                        <div class="table-responsive">
+						-->
+                        <!--
+						<strong>Sorting:</strong> {{tableParams.sorting()|json}}
+                        -->
+						<div class="table-responsive">
                             <table ng-table="tableParams" class="table">
                                 <tbody ng-repeat="p in $data">
                                     <tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
-                                        <td class="rowTd" data-title="'ID'" sortable="'id'">{{p.id}}</td>
-                                        <td class="rowTd" data-title="'Firstname'" sortable="'fn'">{{p.fn}}</td>
-                                        <td class="rowTd" data-title="'Lastname'" sortable="'ln'">{{p.ln}}</td>
-                                        <td class="rowTd" data-title="'Description'" sortable="'dc'">{{p.dc}}</td>
-                                        <td class="rowTd" data-title="'Email'" sortable="'em'">{{p.em}}</td>
-                                        <td class="rowTd" data-title="'Phone'" sortable="'ph'">{{p.ph}}</td>
+                                        <td class="rowTd" data-title="'Name'" sortable="'id'">{{p.id}}</td>
+                                        <td class="rowTd" data-title="'Date of Request'" sortable="'fn'">{{p.fn}}</td>
+                                        <td class="rowTd" data-title="'Payment'" sortable="'ln'">{{p.ln}}</td>
+                                        <td class="rowTd" data-title="'Price'" sortable="'dc'">{{p.dc}}</td>
+                                        <td class="rowTd" data-title="'Start Date'" sortable="'em'">{{p.em}}</td>
+                                        <td class="rowTd" data-title="'End Date'" sortable="'ph'">{{p.ph}}</td>
+                                        <td class="rowTd" data-title="'Status'" sortable="'ph'">{{p.ph}}</td>
                                         <td class="rowTd">
                                             <div class="pull-right margin-right-10">
-                                                <input type=button class="btn btn-primary btn-o btn-sm" id="editRowBtn{{p.id}}" value="edit"
+                                                <input type=button class="btn btn-primary btn-o btn-sm" id="editRowBtn{{p.id}}" value="Check Updates"
                                                        ng-click="setEditId(p.id)">
                                             </div>
                                         </td>

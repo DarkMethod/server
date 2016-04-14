@@ -68244,7 +68244,6 @@ app.constant('JS_REQUIRES', {
         //*** Controllers
         'dashboardCtrl': 'assets/js/controllers/dashboardCtrl.js',
         'authCtrl': 'assets/js/controllers/authCtrl.js',
-        'interceptCtrl': 'assets/js/controllers/interceptCtrl.js',
         'iconsCtrl': 'assets/js/controllers/iconsCtrl.js',
         'vAccordionCtrl': 'assets/js/controllers/vAccordionCtrl.js',
         'ckeditorCtrl': 'assets/js/controllers/ckeditorCtrl.js',
@@ -68385,9 +68384,11 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 		abstract: true
     }).state('app.dashboard', {
         url: "/dashboard",
-        templateUrl: "assets/views/dashboard.html",
-        resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
-        title: 'Dashboard',
+        // templateUrl: "assets/views/dashboard.html",
+        templateUrl: "assets/views/table_data.html",
+        //resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
+        resolve: loadSequence('ngTable', 'ngTableCtrl'),
+		title: 'Dashboard',
         ncyBreadcrumb: {
             label: 'Dashboard'
         }
