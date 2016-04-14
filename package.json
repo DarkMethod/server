@@ -37,7 +37,7 @@
     "npm": ">= 1.2"
   },
   "scripts": {
-    "start": "NODE_ENV=production forever server.js",
-    "test": "SET NODE_ENV=development&& nodemon server.js"
+    "test": "SET NODE_ENV=development&& nodemon server.js",
+    "start": "NODE_ENV=production forever server.js"
   }
 }
