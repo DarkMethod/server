@@ -239,13 +239,13 @@
                             <table ng-table="tableParams" class="table">
                                 <tbody ng-repeat="p in $data">
                                     <tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
-                                        <td class="rowTd" data-title="'Name'" sortable="'id'">{{p.id}}</td>
-                                        <td class="rowTd" data-title="'Date of Request'" sortable="'fn'">{{p.fn}}</td>
-                                        <td class="rowTd" data-title="'Payment'" sortable="'ln'">{{p.ln}}</td>
-                                        <td class="rowTd" data-title="'Price'" sortable="'dc'">{{p.dc}}</td>
-                                        <td class="rowTd" data-title="'Start Date'" sortable="'em'">{{p.em}}</td>
-                                        <td class="rowTd" data-title="'End Date'" sortable="'ph'">{{p.ph}}</td>
-                                        <td class="rowTd" data-title="'Status'" sortable="'ph'">{{p.ph}}</td>
+                                        <td class="rowTd" data-title="'Name'" sortable="'itm'">{{p.itm}}</td>
+                                        <td class="rowTd" data-title="'Date of Request'" sortable="'dor'">{{p.dor}}</td>
+                                        <td class="rowTd" data-title="'Payment'" sortable="'pmt'">{{p.pmt}}</td>
+                                        <td class="rowTd" data-title="'Price'" sortable="'prc'">{{p.prc}}</td>
+                                        <td class="rowTd" data-title="'Start Date'" sortable="'std'">{{p.std}}</td>
+                                        <td class="rowTd" data-title="'End Date'" sortable="'end'">{{p.end}}</td>
+                                        <td class="rowTd" data-title="'Status'" sortable="'sta'">{{p.sta}}</td>
                                         <td class="rowTd">
                                             <div class="pull-right margin-right-10">
                                                 <input type=button class="btn btn-primary btn-o btn-sm" id="editRowBtn{{p.id}}" value="Check Updates"

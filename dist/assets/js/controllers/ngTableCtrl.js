@@ -172,6 +172,162 @@ app.controller('ngTableCtrl5', ["$scope", "$filter", "ngTableParams", function (
 }]);
 app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function ($scope, $filter, ngTableParams) {
     var data = [{
+		"id": 1,
+		"itm": "Property Maintenance",
+		"dor": "1 Jan,15",
+		"pmt": "Yes",
+		"prc": 2000,
+		"std": "7 Jan,15",
+		"end": "8 Feb,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 2,
+		"itm": "Geriatric care",
+		"dor": "3 Jun, 15",
+		"pmt": "Yes",
+		"prc": 5000,
+		"std": "4 Jun,15",
+		"end": "5 Jul,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 3,
+		"itm": "IT Returns filing",
+		"dor": "5 Jan, 15",
+		"pmt": "No",
+		"prc": 6000,
+		"std": "8 Jan,15",
+		"end": "10 Mar,15",
+		"sta": "In Progress",
+		"upd":{
+		}
+	},{
+		"id": 4,
+		"itm": "PAN Card Application ",
+		"dor": "9 Sep,15",
+		"pmt": "No",
+		"prc": 2000,
+		"std": "10 Sep,15",
+		"end": "12 Oct,15",
+		"sta": "On Hold",
+		"upd":{
+		}
+	},{
+		"id": 5,
+		"itm": "Airport pick up ",
+		"dor": "11 Apr,15",
+		"pmt": "Yes",
+		"prc": 700,
+		"std": "15 Apr,15",
+		"end": "15 Apr,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 6,
+		"itm": "Hotel Accomodation ",
+		"dor": "1 Jan,15",
+		"pmt": "Yes",
+		"prc": 6000,
+		"std": "8 Jan,15",
+		"end": "12 Jan,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 7,
+		"itm": "Property Maintenance",
+		"dor": "10 Oct,15",
+		"pmt": "No",
+		"prc": 10000,
+		"std": "15 Oct,15",
+		"end": "15 Dec,15",
+		"sta": "On Hold",
+		"upd":{
+		}
+	},{
+		"id": 8,
+		"itm": "Fee payments",
+		"dor": "19 Apr,15",
+		"pmt": "Yes",
+		"prc": 12000,
+		"std": "25 Apr,15",
+		"end": "25 Jun,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 9,
+		"itm": "Notarization",
+		"dor": "11 Jan,15",
+		"pmt": "No",
+		"prc": 12000,
+		"std": "18 Jan,15",
+		"end": "18 Fec,15",
+		"sta": "In Progress",
+		"upd":{
+		}
+	},{
+		"id": 10,
+		"itm": "Medicine Delivery ",
+		"dor": "1 Apr,15",
+		"pmt": "No",
+		"prc": 15000,
+		"std": "1 Jan,15",
+		"end": "1 Jan,16",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{	
+		"id": 11,
+		"itm": "IT Returns filing",
+		"dor": "1 Jan, 15",
+		"pmt": "Yes",
+		"prc": 10000,
+		"std": "3 May,15",
+		"end": "13 Aug,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 12,
+		"itm": "Emergency care",
+		"dor": "10 Nov,15",
+		"pmt": "No",
+		"prc": 12000,
+		"std": "12 Nov,15",
+		"end": "12 Dec,15",
+		"sta": "On Hold",
+		"upd":{
+		}
+	},{
+		"id": 13,
+		"itm": "Renovation",
+		"dor": "4 Sep,15",
+		"pmt": "Yes",
+		"prc": 25000,
+		"std": "4 Sep,15",
+		"end": "4 Nov,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	},{
+		"id": 14,
+		"itm": "Interior Designing",
+		"dor": "21 Dec,15",
+		"pmt": "Yes",
+		"prc": 12000,
+		"std": "25 Dec,15",
+		"end": "25 Jan,15",
+		"sta": "Complete",
+		"upd":{
+		}
+	}
+	/*
+	{
         "id": 1,
         "lm": 138661285100,
         "ln": "Smith",
@@ -311,7 +467,7 @@ app.controller('ngTableCtrl6', ["$scope", "$filter", "ngTableParams", function (
         "ph": "617-866-2554",
         "ac": true,
         "dl": false
-    }];
+    }*/];
     $scope.tableParams = new ngTableParams({
         page: 1,
         count: 10
