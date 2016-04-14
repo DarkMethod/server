@@ -39,7 +39,7 @@ var tool = require('cloneextend'),
 								}
 							},
 			verifyEmailLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/verify/',
-			resetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com//auth/reset/'	
+			resetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/reset/'	
 		}
     };
     conf.development = {
