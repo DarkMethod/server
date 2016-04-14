@@ -21,12 +21,12 @@ var tool = require('cloneextend'),
 		facebookAuth:	{
 			clientID      : '1590813454568088', 
 			clientSecret  : 'fafc91c338b3246f0f13983118c9752c', 
-			callbackURL   : 'http://localhost:3000/auth/facebook/callback'
+			callbackURL   : 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/facebook/callback'
 		},
 		googleAuth:	    {
 			clientID      : '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com',
 			clientSecret  : '3qGx6U7yG8CO5lDczrPVMIQo',
-			callbackURL   : 'http://127.0.0.1:3000/auth/google/callback'
+			callbackURL   : 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/google/callback'
 		},
 		mailer:			{
 			smtp		: {
@@ -38,8 +38,8 @@ var tool = require('cloneextend'),
 									pass: 'taking it all'
 								}
 							},
-			verifyEmailLink	: 'http://localhost:3000/auth/verify/',
-			resetPasswordLink	: 'http://localhost:3000/auth/reset/'	
+			verifyEmailLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/verify/',
+			resetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com//auth/reset/'	
 		}
     };
     conf.development = {
