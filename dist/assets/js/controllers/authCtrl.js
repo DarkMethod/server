@@ -8,8 +8,9 @@ app.controller('authCtrl', [
 	'$stateParams',
 	'$auth',
 	'$http',
+	'$uibModal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, SweetAlert){
+	function($scope, $state, $stateParams, $auth, $http, $uibModal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -47,6 +48,91 @@ app.controller('authCtrl', [
 			);
 		};
 		
+		$scope.signUpModal = function(){
+			var modalInstance = $uibModal.open({
+				templateUrl: 'signUpModalContent.html',
+				controller :  function($scope){
+					$scope.cancelModal = function(){
+						modalInstance.dismiss('Cancelled');
+					}
+					
+					$scope.authenticate = function(provider){
+						$auth.authenticate(provider).then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							console.log(response.data);
+						});
+					};
+					
+					$scope.signUp =  function(){
+						$auth.signup($scope.user).then(function(response) {
+						var message = {};
+						message.title = 'Congrats!';
+						message.text = 'An account activation link has been mailed to your email address.';
+						message._next = 'login.login';
+						modalInstance.close();
+						successAlert(message);
+						}).catch(function(response) {
+							var message = {};
+							if(response.status === 409){
+								message.title = 'Error!';
+								message.text = 'A user with this email already exists.';
+								errorAlert(message);
+							}else{
+								message.title = 'Oops!';
+								message.text = 'We seem to be having some trouble. Please try again later.';
+								errorAlert(message);	
+							}
+						});
+					};
+				}
+			});
+		};
+		
+		$scope.signInModal = function(){
+			 var modalInstance = $uibModal.open({
+				templateUrl: 'signInModalContent.html',
+				controller: function($scope){
+					$scope.authenticate = function(provider){
+						$auth.authenticate(provider).then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							console.log(response.data);
+						});
+					};
+					
+					$scope.signIn = function(){
+						$auth.login($scope.user) .then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							var message = {};
+							if(response.status === 401){
+								message.title = 'Invalid!';
+								message.text = 'Invalid email and/or password';
+								modalInstance.close();
+								errorAlert(message);
+							}else{
+								message.title = 'Oops!';
+								message.text = 'We seem to be having some trouble. Please try again later.';
+								modalInstance.close();
+								errorAlert(message);	
+							}
+						});
+					};
+					
+					$scope.cancelModal = function(){
+						modalInstance.dismiss('Cancelled');
+					};
+				}
+			});
+		};
+		
 		$scope.signUp = function(){
 			$auth.signup($scope.user).then(function(response) {
 				var message = {};
@@ -71,7 +157,8 @@ app.controller('authCtrl', [
 
 		$scope.signIn = function(){
 			$auth.login($scope.user) .then(function(response) {
-				$state.go('app.dashboard');
+				$auth.setToken(response.data.token);
+				$state.go('services.home');
 			})
 			.catch(function(response) {
 				var message = {};
@@ -133,9 +220,8 @@ app.controller('authCtrl', [
 		
 		$scope.authenticate = function(provider){
 			$auth.authenticate(provider).then(function(response) {
-				console.log('Authenticated');
-				console.log(response.data);
-				$state.go('app.dashboard');
+				$auth.setToken(response.data.token);
+				$state.go('services.home');
 			})
 			.catch(function(response) {
 				console.log(response.data);
@@ -143,8 +229,12 @@ app.controller('authCtrl', [
 			});
 		};
 		
+		$scope.isAuthenticated = function() {
+			return $auth.isAuthenticated();
+		};
+		
 		$scope.signOut = function(){
 			$auth.logout();
-			$state.go('landing.welcome');
+			$state.go('services.home');
 		};	
 }])

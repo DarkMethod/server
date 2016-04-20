@@ -68244,6 +68244,7 @@ app.constant('JS_REQUIRES', {
         //*** Controllers
         'dashboardCtrl': 'assets/js/controllers/dashboardCtrl.js',
         'authCtrl': 'assets/js/controllers/authCtrl.js',
+        'servicesCtrl': 'assets/js/controllers/servicesCtrl.js',
         'iconsCtrl': 'assets/js/controllers/iconsCtrl.js',
         'vAccordionCtrl': 'assets/js/controllers/vAccordionCtrl.js',
         'ckeditorCtrl': 'assets/js/controllers/ckeditorCtrl.js',
@@ -68274,7 +68275,7 @@ app.constant('JS_REQUIRES', {
         'knobCtrl': 'assets/js/controllers/knobCtrl.js',
 		
 		//*** Factory & Services
-		'auth': 'assets/js/services/auth.js',
+		//'authModal': 'assets/js/services/authModal.js',
 		
     },
     //*** angularJS Modules
@@ -68376,7 +68377,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     $stateProvider.state('app', {
         url: "/app",
         templateUrl: "assets/views/app.html",
-        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl', 'auth', 'authCtrl'),
+        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl', 'authCtrl'),
 		onEnter:['$state', '$auth',function($state, $auth){
 				if(!$auth.isAuthenticated()){
 					$state.go('login.login');
@@ -68384,10 +68385,10 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 		abstract: true
     }).state('app.dashboard', {
         url: "/dashboard",
-        // templateUrl: "assets/views/dashboard.html",
-        templateUrl: "assets/views/table_data.html",
-        //resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
-        resolve: loadSequence('ngTable', 'ngTableCtrl'),
+        templateUrl: "assets/views/dashboard.html",
+        //templateUrl: "assets/views/table_data.html",
+        resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
+        //resolve: loadSequence('ngTable', 'ngTableCtrl'),
 		title: 'Dashboard',
         ncyBreadcrumb: {
             label: 'Dashboard'
@@ -68854,7 +68855,35 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	    url: '/welcome',
 	    templateUrl: "assets/views/landing_page.html"
 	})
-		
+	
+	// Landing Page route
+	.state('services', {
+	    url: '/services',
+	    templateUrl: 'assets/views/services.html',
+		resolve: loadSequence('authCtrl', 'servicesCtrl'),
+		abstract:true
+	}).state('services.home', {
+	    url: '/home',
+	    templateUrl: "assets/views/services_home.html",
+	}).state('services.property_management', {
+	    url: '/property_mangagement',
+	    templateUrl: "assets/views/service.html"
+	}).state('services.medical_services', {
+	    url: '/medical_services',
+	    templateUrl: "assets/views/service.html"
+	}).state('services.legal_services', {
+	    url: '/legal_services',
+	    templateUrl: "assets/views/service.html"
+	}).state('services.document_procurement', {
+	    url: '/document_procurement',
+	    templateUrl: "assets/views/service.html"
+	}).state('services.travel_services', {
+	    url: '/travel_services',
+	    templateUrl: "assets/views/service.html"
+	}).state('services.education_tracking', {
+	    url: '/education_tracking',
+	    templateUrl: "assets/views/service.html"
+	})	
 		
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {
@@ -70780,6 +70809,42 @@ app.factory('auth',['$http','$window','$state',function($http,$window,$state){
 
 'use strict';
 /** 
+  * Factory for Sign Up Modal.
+*/
+app.factory('authModal',['ngDialog', '$auth', function( ngDialog, $auth){
+	var authModal = {};
+	authModal.signUp = function($scope){
+			ngDialog.openConfirm({
+			template: '/assets/views/signUpModal.html',
+			className: 'ngdialog-theme-default',
+			scope: $scope //Pass the scope object if you need to access in the template
+		}).then(
+			function(value) {
+				//You need to implement the saveForm() method which should return a promise object
+				$scope.saveForm().then(
+					function(success) {
+						ngDialog.open({template: '<div class="ngdialog-message"> \
+						  Your enquiry has been sent. We will get back to you shortly.</div>',
+							plain: 'true'
+						});
+					},
+					function(error) {
+						ngDialog.open({template: '<div class="ngdialog-message"> \
+						  An error occurred while sending your enquiry. Please try again.</div>',
+							plain: 'true'
+						});
+					}
+				);
+			},
+			function(value) {
+				//Cancel or do nothing
+			}
+		);
+	};
+	return authModal;	
+}])
+'use strict';
+/** 
   * controller for user authentication.
 */
 app.controller('authCtrl', [
@@ -70788,8 +70853,9 @@ app.controller('authCtrl', [
 	'$stateParams',
 	'$auth',
 	'$http',
+	'$uibModal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, SweetAlert){
+	function($scope, $state, $stateParams, $auth, $http, $uibModal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -70827,6 +70893,91 @@ app.controller('authCtrl', [
 			);
 		};
 		
+		$scope.signUpModal = function(){
+			var modalInstance = $uibModal.open({
+				templateUrl: 'signUpModalContent.html',
+				controller :  function($scope){
+					$scope.cancelModal = function(){
+						modalInstance.dismiss('Cancelled');
+					}
+					
+					$scope.authenticate = function(provider){
+						$auth.authenticate(provider).then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							console.log(response.data);
+						});
+					};
+					
+					$scope.signUp =  function(){
+						$auth.signup($scope.user).then(function(response) {
+						var message = {};
+						message.title = 'Congrats!';
+						message.text = 'An account activation link has been mailed to your email address.';
+						message._next = 'login.login';
+						modalInstance.close();
+						successAlert(message);
+						}).catch(function(response) {
+							var message = {};
+							if(response.status === 409){
+								message.title = 'Error!';
+								message.text = 'A user with this email already exists.';
+								errorAlert(message);
+							}else{
+								message.title = 'Oops!';
+								message.text = 'We seem to be having some trouble. Please try again later.';
+								errorAlert(message);	
+							}
+						});
+					};
+				}
+			});
+		};
+		
+		$scope.signInModal = function(){
+			 var modalInstance = $uibModal.open({
+				templateUrl: 'signInModalContent.html',
+				controller: function($scope){
+					$scope.authenticate = function(provider){
+						$auth.authenticate(provider).then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							console.log(response.data);
+						});
+					};
+					
+					$scope.signIn = function(){
+						$auth.login($scope.user) .then(function(response) {
+							$auth.setToken(response.data.token);
+							modalInstance.close();
+							$state.go('services.home');
+						}).catch(function(response) {
+							var message = {};
+							if(response.status === 401){
+								message.title = 'Invalid!';
+								message.text = 'Invalid email and/or password';
+								modalInstance.close();
+								errorAlert(message);
+							}else{
+								message.title = 'Oops!';
+								message.text = 'We seem to be having some trouble. Please try again later.';
+								modalInstance.close();
+								errorAlert(message);	
+							}
+						});
+					};
+					
+					$scope.cancelModal = function(){
+						modalInstance.dismiss('Cancelled');
+					};
+				}
+			});
+		};
+		
 		$scope.signUp = function(){
 			$auth.signup($scope.user).then(function(response) {
 				var message = {};
@@ -70851,7 +71002,8 @@ app.controller('authCtrl', [
 
 		$scope.signIn = function(){
 			$auth.login($scope.user) .then(function(response) {
-				$state.go('app.dashboard');
+				$auth.setToken(response.data.token);
+				$state.go('services.home');
 			})
 			.catch(function(response) {
 				var message = {};
@@ -70913,9 +71065,8 @@ app.controller('authCtrl', [
 		
 		$scope.authenticate = function(provider){
 			$auth.authenticate(provider).then(function(response) {
-				console.log('Authenticated');
-				console.log(response.data);
-				$state.go('app.dashboard');
+				$auth.setToken(response.data.token);
+				$state.go('services.home');
 			})
 			.catch(function(response) {
 				console.log(response.data);
@@ -70923,9 +71074,13 @@ app.controller('authCtrl', [
 			});
 		};
 		
+		$scope.isAuthenticated = function() {
+			return $auth.isAuthenticated();
+		};
+		
 		$scope.signOut = function(){
 			$auth.logout();
-			$state.go('landing.welcome');
+			$state.go('services.home');
 		};	
 }])
 'use strict';
