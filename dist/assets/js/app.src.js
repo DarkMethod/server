@@ -71064,6 +71064,7 @@ app.controller('authCtrl', [
 		};
 		
 		$scope.authenticate = function(provider){
+			console.log('Yay');
 			$auth.authenticate(provider).then(function(response) {
 				$auth.setToken(response.data.token);
 				$state.go('services.home');
