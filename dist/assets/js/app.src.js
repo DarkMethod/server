@@ -68275,7 +68275,7 @@ app.constant('JS_REQUIRES', {
         'knobCtrl': 'assets/js/controllers/knobCtrl.js',
 		
 		//*** Factory & Services
-		//'authModal': 'assets/js/services/authModal.js',
+		'modal': 'assets/js/services/modal.js',
 		
     },
     //*** angularJS Modules
@@ -68822,23 +68822,20 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	.state('login', {
 	    url: '/login',
 	    template: '<div ui-view class="fade-in-right-big smooth"></div>',
+		resolve: loadSequence('authCtrl', 'modal'),
 	    abstract: true
 	}).state('login.login', {
 	    url: '/login/:status',
 	    templateUrl: "assets/views/login_login.html",
-		resolve: loadSequence('authCtrl')
 	}).state('login.forgot', {
 	    url: '/forgot/:status',
 	    templateUrl: "assets/views/login_forgot.html",
-		resolve: loadSequence('authCtrl')
 	}).state('login.reset', {
 	    url: '/reset/:token',
 	    templateUrl: "assets/views/login_reset.html",
-		resolve: loadSequence('authCtrl')
 	}).state('login.registration', {
 	    url: '/registration/:status',
 	    templateUrl: "assets/views/login_registration.html",
-		resolve: loadSequence('authCtrl')
 	}).state('login.lockscreen', {
 	    url: '/lock',
 	    templateUrl: "assets/views/login_lock_screen.html"
@@ -68860,7 +68857,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	.state('services', {
 	    url: '/services',
 	    templateUrl: 'assets/views/services.html',
-		resolve: loadSequence('authCtrl', 'servicesCtrl'),
+		resolve: loadSequence('authCtrl', 'servicesCtrl','modal'),
 		abstract:true
 	}).state('services.home', {
 	    url: '/home',
@@ -70809,40 +70806,38 @@ app.factory('auth',['$http','$window','$state',function($http,$window,$state){
 
 'use strict';
 /** 
-  * Factory for Sign Up Modal.
+  * Factory for generating modals.
 */
-app.factory('authModal',['ngDialog', '$auth', function( ngDialog, $auth){
-	var authModal = {};
-	authModal.signUp = function($scope){
-			ngDialog.openConfirm({
-			template: '/assets/views/signUpModal.html',
-			className: 'ngdialog-theme-default',
-			scope: $scope //Pass the scope object if you need to access in the template
-		}).then(
-			function(value) {
-				//You need to implement the saveForm() method which should return a promise object
-				$scope.saveForm().then(
-					function(success) {
-						ngDialog.open({template: '<div class="ngdialog-message"> \
-						  Your enquiry has been sent. We will get back to you shortly.</div>',
-							plain: 'true'
-						});
-					},
-					function(error) {
-						ngDialog.open({template: '<div class="ngdialog-message"> \
-						  An error occurred while sending your enquiry. Please try again.</div>',
-							plain: 'true'
-						});
-					}
-				);
-			},
-			function(value) {
-				//Cancel or do nothing
-			}
-		);
+app.factory('modal',['$uibModal', function($uibModal){
+	var modal = {};
+	modal.instance = {};
+	
+	modal.open = function(id, templateUrl, controller){
+		modal.instance[id] = $uibModal.open({
+			templateUrl : templateUrl,
+			controller 	: controller
+		});
 	};
-	return authModal;	
+	
+	modal.close = function(id){
+		modal.instance[id].close();
+	};
+	
+	modal.isOpen = function(id){
+		if(modal.instance[id]){
+			if(modal.instance[id].opened)
+				return true;
+			else
+				return false;
+		}else{
+			return false;
+		}	
+	};
+		
+	return modal;	
 }])
+
+
 'use strict';
 /** 
   * controller for user authentication.
@@ -70854,8 +70849,9 @@ app.controller('authCtrl', [
 	'$auth',
 	'$http',
 	'$uibModal',
+	'modal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, $uibModal, SweetAlert){
+	function($scope, $state, $stateParams, $auth, $http, $uibModal, modal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -70893,97 +70889,26 @@ app.controller('authCtrl', [
 			);
 		};
 		
-		$scope.signUpModal = function(){
-			var modalInstance = $uibModal.open({
-				templateUrl: 'signUpModalContent.html',
-				controller :  function($scope){
-					$scope.cancelModal = function(){
-						modalInstance.dismiss('Cancelled');
-					}
-					
-					$scope.authenticate = function(provider){
-						$auth.authenticate(provider).then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							console.log(response.data);
-						});
-					};
-					
-					$scope.signUp =  function(){
-						$auth.signup($scope.user).then(function(response) {
-						var message = {};
-						message.title = 'Congrats!';
-						message.text = 'An account activation link has been mailed to your email address.';
-						message._next = 'login.login';
-						modalInstance.close();
-						successAlert(message);
-						}).catch(function(response) {
-							var message = {};
-							if(response.status === 409){
-								message.title = 'Error!';
-								message.text = 'A user with this email already exists.';
-								errorAlert(message);
-							}else{
-								message.title = 'Oops!';
-								message.text = 'We seem to be having some trouble. Please try again later.';
-								errorAlert(message);	
-							}
-						});
-					};
-				}
-			});
+		$scope.openModal = function(id, templateUrl, controller, currId){
+			if(currId){
+				modal.close(currId);
+			}
+			modal.open(id, templateUrl, controller);
 		};
 		
-		$scope.signInModal = function(){
-			 var modalInstance = $uibModal.open({
-				templateUrl: 'signInModalContent.html',
-				controller: function($scope){
-					$scope.authenticate = function(provider){
-						$auth.authenticate(provider).then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							console.log(response.data);
-						});
-					};
-					
-					$scope.signIn = function(){
-						$auth.login($scope.user) .then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							var message = {};
-							if(response.status === 401){
-								message.title = 'Invalid!';
-								message.text = 'Invalid email and/or password';
-								modalInstance.close();
-								errorAlert(message);
-							}else{
-								message.title = 'Oops!';
-								message.text = 'We seem to be having some trouble. Please try again later.';
-								modalInstance.close();
-								errorAlert(message);	
-							}
-						});
-					};
-					
-					$scope.cancelModal = function(){
-						modalInstance.dismiss('Cancelled');
-					};
-				}
-			});
+		$scope.cancelModal = function(id){
+				modal.close(id);
 		};
-		
+				
 		$scope.signUp = function(){
 			$auth.signup($scope.user).then(function(response) {
 				var message = {};
 				message.title = 'Congrats!';
 				message.text = 'An account activation link has been mailed to your email address.';
 				message._next = 'login.login';
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
 				successAlert(message);
 			})
 			.catch(function(response) {
@@ -70991,10 +70916,16 @@ app.controller('authCtrl', [
 				if(response.status === 409){
 					message.title = 'Error!';
 					message.text = 'A user with this email already exists.';
+					if(modal.isOpen('signUp')){
+						modal.close('signUp');
+					}
 					errorAlert(message);
 				}else{
 					message.title = 'Oops!';
 					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signUp')){
+						modal.close('signUp');
+					}
 					errorAlert(message);	
 				}
 			});
@@ -71003,6 +70934,9 @@ app.controller('authCtrl', [
 		$scope.signIn = function(){
 			$auth.login($scope.user) .then(function(response) {
 				$auth.setToken(response.data.token);
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				$state.go('services.home');
 			})
 			.catch(function(response) {
@@ -71010,10 +70944,16 @@ app.controller('authCtrl', [
 				if(response.status === 401){
 					message.title = 'Invalid!';
 					message.text = 'Invalid email and/or password';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
 					errorAlert(message);
 				}else{
 					message.title = 'Oops!';
 					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
 					errorAlert(message);	
 				}
 			});
@@ -71064,14 +71004,24 @@ app.controller('authCtrl', [
 		};
 		
 		$scope.authenticate = function(provider){
-			console.log('Yay');
 			$auth.authenticate(provider).then(function(response) {
 				$auth.setToken(response.data.token);
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				$state.go('services.home');
 			})
 			.catch(function(response) {
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				console.log(response.data);
-				// Something went wrong.
 			});
 		};
 		
@@ -71138,7 +71088,7 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         }
 
         // Save the route title
-        $rootScope.currTitle = $state.current.title;
+       // $rootScope.currTitle = $state.current.title;
 
     });
 
@@ -71152,10 +71102,11 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         console.log(unfoundState.options);
         // {inherit:false} + default options
     });
-
+	/*
     $rootScope.pageTitle = function () {
         return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
     };
+	*/
     var defaultlayout = $scope.app.defaultLayout;
     // save settings to local storage
     if (angular.isDefined($localStorage.lay)) {

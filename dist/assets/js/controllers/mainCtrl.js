@@ -52,7 +52,7 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         }
 
         // Save the route title
-        $rootScope.currTitle = $state.current.title;
+       // $rootScope.currTitle = $state.current.title;
 
     });
 
@@ -66,10 +66,11 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         console.log(unfoundState.options);
         // {inherit:false} + default options
     });
-
+	/*
     $rootScope.pageTitle = function () {
         return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
     };
+	*/
     var defaultlayout = $scope.app.defaultLayout;
     // save settings to local storage
     if (angular.isDefined($localStorage.lay)) {

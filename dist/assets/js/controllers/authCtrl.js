@@ -9,8 +9,9 @@ app.controller('authCtrl', [
 	'$auth',
 	'$http',
 	'$uibModal',
+	'modal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, $uibModal, SweetAlert){
+	function($scope, $state, $stateParams, $auth, $http, $uibModal, modal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -48,97 +49,26 @@ app.controller('authCtrl', [
 			);
 		};
 		
-		$scope.signUpModal = function(){
-			var modalInstance = $uibModal.open({
-				templateUrl: 'signUpModalContent.html',
-				controller :  function($scope){
-					$scope.cancelModal = function(){
-						modalInstance.dismiss('Cancelled');
-					}
-					
-					$scope.authenticate = function(provider){
-						$auth.authenticate(provider).then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							console.log(response.data);
-						});
-					};
-					
-					$scope.signUp =  function(){
-						$auth.signup($scope.user).then(function(response) {
-						var message = {};
-						message.title = 'Congrats!';
-						message.text = 'An account activation link has been mailed to your email address.';
-						message._next = 'login.login';
-						modalInstance.close();
-						successAlert(message);
-						}).catch(function(response) {
-							var message = {};
-							if(response.status === 409){
-								message.title = 'Error!';
-								message.text = 'A user with this email already exists.';
-								errorAlert(message);
-							}else{
-								message.title = 'Oops!';
-								message.text = 'We seem to be having some trouble. Please try again later.';
-								errorAlert(message);	
-							}
-						});
-					};
-				}
-			});
+		$scope.openModal = function(id, templateUrl, controller, currId){
+			if(currId){
+				modal.close(currId);
+			}
+			modal.open(id, templateUrl, controller);
 		};
 		
-		$scope.signInModal = function(){
-			 var modalInstance = $uibModal.open({
-				templateUrl: 'signInModalContent.html',
-				controller: function($scope){
-					$scope.authenticate = function(provider){
-						$auth.authenticate(provider).then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							console.log(response.data);
-						});
-					};
-					
-					$scope.signIn = function(){
-						$auth.login($scope.user) .then(function(response) {
-							$auth.setToken(response.data.token);
-							modalInstance.close();
-							$state.go('services.home');
-						}).catch(function(response) {
-							var message = {};
-							if(response.status === 401){
-								message.title = 'Invalid!';
-								message.text = 'Invalid email and/or password';
-								modalInstance.close();
-								errorAlert(message);
-							}else{
-								message.title = 'Oops!';
-								message.text = 'We seem to be having some trouble. Please try again later.';
-								modalInstance.close();
-								errorAlert(message);	
-							}
-						});
-					};
-					
-					$scope.cancelModal = function(){
-						modalInstance.dismiss('Cancelled');
-					};
-				}
-			});
+		$scope.cancelModal = function(id){
+				modal.close(id);
 		};
-		
+				
 		$scope.signUp = function(){
 			$auth.signup($scope.user).then(function(response) {
 				var message = {};
 				message.title = 'Congrats!';
 				message.text = 'An account activation link has been mailed to your email address.';
 				message._next = 'login.login';
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
 				successAlert(message);
 			})
 			.catch(function(response) {
@@ -146,10 +76,16 @@ app.controller('authCtrl', [
 				if(response.status === 409){
 					message.title = 'Error!';
 					message.text = 'A user with this email already exists.';
+					if(modal.isOpen('signUp')){
+						modal.close('signUp');
+					}
 					errorAlert(message);
 				}else{
 					message.title = 'Oops!';
 					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signUp')){
+						modal.close('signUp');
+					}
 					errorAlert(message);	
 				}
 			});
@@ -158,6 +94,9 @@ app.controller('authCtrl', [
 		$scope.signIn = function(){
 			$auth.login($scope.user) .then(function(response) {
 				$auth.setToken(response.data.token);
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				$state.go('services.home');
 			})
 			.catch(function(response) {
@@ -165,10 +104,16 @@ app.controller('authCtrl', [
 				if(response.status === 401){
 					message.title = 'Invalid!';
 					message.text = 'Invalid email and/or password';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
 					errorAlert(message);
 				}else{
 					message.title = 'Oops!';
 					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
 					errorAlert(message);	
 				}
 			});
@@ -219,14 +164,24 @@ app.controller('authCtrl', [
 		};
 		
 		$scope.authenticate = function(provider){
-			console.log('Yay');
 			$auth.authenticate(provider).then(function(response) {
 				$auth.setToken(response.data.token);
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				$state.go('services.home');
 			})
 			.catch(function(response) {
+				if(modal.isOpen('signUp')){
+					modal.close('signUp');
+				}
+				if(modal.isOpen('signIn')){
+					modal.close('signIn');
+				}
 				console.log(response.data);
-				// Something went wrong.
 			});
 		};
 		

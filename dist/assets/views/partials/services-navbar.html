@@ -8,7 +8,7 @@
                     </a>
                     <!-- end: RESPONSIVE MENU TOGGLER -->
                     <!-- start: LOGO -->
-                    <a href="index.html" class="navbar-brand">
+                    <a ui-sref="landing.welcome" class="navbar-brand">
 						YEDUPUDI
 						<!--
 						<h2 id="landing-page-brand-title">{{app.name}}</h2>
@@ -49,12 +49,12 @@
 							</ul>
 						</li>
 						<li>
-                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="signInModal()">
+                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="openModal('signIn', 'signInModalContent.html', 'authCtrl')">
                                 Sign In
                             </a>
                         </li>
                         <li>
-                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="signUpModal()">
+                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="openModal('signUp', 'signUpModalContent.html', 'authCtrl')">
                                 Sign Up
                             </a>
                         </li>
@@ -118,9 +118,9 @@
         </div>
 <script type="text/ng-template" id="signInModalContent.html">
                 <div class="modal-header text-center padding-top-20 margin-bottom-0 no-border">
-                    <a ng-click="cancelModal()"><i class="ti ti-close ti-tw pull-right"></i></a>
+                    <a ng-click="cancelModal('signIn')"><i class="ti ti-close ti-tw pull-right"></i></a>
 					<h5 class="modal-title text-bold text-dark">SIGN IN TO YOUR YEDUPUDI ACCOUNT</h5>
-                    <p class="text-small margin-top-10">DON'T HAVE AN ACCOUNT YET?<a ng-click = "signUpModal()"> SIGN UP</a></p>
+                    <p class="text-small margin-top-10">DON'T HAVE AN ACCOUNT YET?<a ng-click="openModal('signUp', 'signUpModalContent.html', 'authCtrl', 'signIn')"> SIGN UP</a></p>
                 </div>
                <div class="modal-body padding-bottom-50 padding-top-0">
 					<div class="row">	
@@ -163,9 +163,9 @@
             </script>
 			<script type="text/ng-template" id="signUpModalContent.html">
                 <div class="modal-header text-center padding-top-20 margin-bottom-0 no-border">
-                    <a ng-click="cancelModal()"><i class="ti ti-close ti-tw pull-right"></i></a>
+                    <a ng-click="cancelModal('signUp')"><i class="ti ti-close ti-tw pull-right"></i></a>
 					<h5 class="modal-title text-bold text-dark">CREATE A FREE ACCOUNT AT YEDUPUDI</h5>
-                    <p class="text-small margin-top-10">ALREADY HAVE AN ACCOUNT? SIGN IN</p>
+                    <p class="text-small margin-top-10">ALREADY HAVE AN ACCOUNT? <a ng-click="openModal('signIn', 'signInModalContent.html', 'authCtrl', 'signUp')">SIGN IN</a></p>
                 </div>
                <div class="modal-body padding-bottom-50 padding-top-0">
 					<div class="row">	
