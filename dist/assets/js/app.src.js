@@ -68377,7 +68377,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
     $stateProvider.state('app', {
         url: "/app",
         templateUrl: "assets/views/app.html",
-        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl', 'authCtrl'),
+        resolve: loadSequence('chartjs', 'chart.js', 'chatCtrl', 'authCtrl', 'modal'),
 		onEnter:['$state', '$auth',function($state, $auth){
 				if(!$auth.isAuthenticated()){
 					$state.go('login.login');
@@ -68385,10 +68385,10 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 		abstract: true
     }).state('app.dashboard', {
         url: "/dashboard",
-        templateUrl: "assets/views/dashboard.html",
-        //templateUrl: "assets/views/table_data.html",
-        resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
-        //resolve: loadSequence('ngTable', 'ngTableCtrl'),
+        // templateUrl: "assets/views/dashboard.html",
+        templateUrl: "assets/views/table_data.html",
+        //resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
+        resolve: loadSequence('ngTable', 'ngTableCtrl'),
 		title: 'Dashboard',
         ncyBreadcrumb: {
             label: 'Dashboard'
