@@ -66,11 +66,9 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         console.log(unfoundState.options);
         // {inherit:false} + default options
     });
-	/*
     $rootScope.pageTitle = function () {
         return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
     };
-	*/
     var defaultlayout = $scope.app.defaultLayout;
     // save settings to local storage
     if (angular.isDefined($localStorage.lay)) {

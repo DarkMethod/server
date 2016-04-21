@@ -70896,7 +70896,12 @@ app.controller('authCtrl', [
 			modal.open(id, templateUrl, controller);
 		};
 		
-		$scope.cancelModal = function(id){
+		$scope.cancelModal = function(id, state){
+				if(state)
+				{
+					modal.close(id);
+					$state.go(state);
+				}	
 				modal.close(id);
 		};
 				
@@ -71102,11 +71107,9 @@ function ($rootScope, $scope, $state, $swipe, $translate, $localStorage, $window
         console.log(unfoundState.options);
         // {inherit:false} + default options
     });
-	/*
     $rootScope.pageTitle = function () {
         return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
     };
-	*/
     var defaultlayout = $scope.app.defaultLayout;
     // save settings to local storage
     if (angular.isDefined($localStorage.lay)) {

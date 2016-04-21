@@ -56,7 +56,12 @@ app.controller('authCtrl', [
 			modal.open(id, templateUrl, controller);
 		};
 		
-		$scope.cancelModal = function(id){
+		$scope.cancelModal = function(id, state){
+				if(state)
+				{
+					modal.close(id);
+					$state.go(state);
+				}	
 				modal.close(id);
 		};
 				

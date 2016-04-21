@@ -149,7 +149,7 @@
 									<span class="error text-small block" ng-if="Form.password.$dirty && Form.password.$error.required">Password is required</span>
 								</div>
 								<div class="text-center padding-bottom-10">
-									<a ui-sref="login.forgot"> I forgot my password </a>
+									<a ng-click="cancelModal('signIn','login.forgot')"> I forgot my password </a>
 								</div>
 								<div class="form-actions">
 									<button type="submit" ng-disabled="Form.$invalid" class="btn btn-red btn-block">
