@@ -169,10 +169,10 @@
     </div>
     <!-- start: SECTION 1 -->
     <div id="section-1">
-		<section class="container-fluid container-fullw padding-bottom-30 section-features">
+		<section class="container-fluid container-fullw bg-white features-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6 col-xs-offset-3 col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
+                    <div class="col-md-12 text-center">
                         <h2>FEATURES</h2>
                         <hr>
                         <p class="margin-bottom-30">
@@ -180,6 +180,56 @@
                         </p>
                     </div>
                 </div>
+				<div class="row text-center">
+					<div class="col-md-3 padding-top-10">
+						<div class="features-block">
+						<div class="block">
+                             <i class="text-red fa fa-black-tie fa-5x"></i>
+                        </div>
+						<h4 class="text-uppercase margin-top-20 text-bold text-red">Professional</h4>
+						<p class="margin-top-5 text-dark">
+							All services are carried out by experienced professionals in that area. 
+							Our supervisors will be available to ensure that it is a job well done.
+							They will keep updating the status of the task and you can view this anytime on your dashboard.
+						</p>
+						</div>
+					</div>
+					<div class="col-md-3 padding-top-10">
+						<div class="features-block">
+						<div class="block">
+                            <i class="text-red fa fa-clock-o fa-5x"></i>
+                        </div>
+						<h4 class="text-uppercase margin-top-20 text-bold text-red">24/7</h4>
+						<p class="margin-top-5 text-dark">
+							You can reach us 24/7 from any part of the world and we will be happy to attend to you right away.
+						</p>
+					</div>
+					</div>
+					<div class="col-md-3 padding-top-10">
+						<div class="features-block">
+						<div class="block">
+                            <i class="text-red fa fa-shopping-bag fa-5x"></i>
+                        </div>
+						<h4 class="text-uppercase margin-top-20 text-bold text-red">Affordable Price</h4>
+						<p class="margin-top-5 text-dark">
+							We go beyond just carrying out the tasks, we ensure that it is upto your exactling standards at very nominal prices.
+						</p>
+					</div>
+					</div>
+					<div class="col-md-3 padding-top-10">
+						<div class="features-block">
+						<div class="block">
+                            <i class="text-red fa fa-adjust fa-5x"></i>
+                        </div>
+						<h4 class="text-uppercase margin-top-20 text-bold text-red">Recurring &amp; one-time services</h4>
+						<p class="margin-top-5 text-dark">
+							Recurring services like health, education or rent related could be paid 3, 6, 9 or 12 months in advance.
+							Other services can be one time payments.
+						</p>
+					</div>
+					</div>
+				</div>
+				<!--
                 <div class="row">
                     <div class="col-xs-6 col-xs-offset-3 col-md-8 col-sm-8 col-md-offset-0 col-sm-offset-0">
                         <div class="row" ng-appear="animationBlock1 = true">
@@ -267,6 +317,7 @@
                         </div>
                     </div>
                 </div>
+				-->
             </div>
         </section>	
 		<!--
@@ -299,92 +350,58 @@
     <!-- start: SECTION 2 -->
     
 	<div id="section-2">
-		<section class="container-fluid container-fullw bg-white padding-bottom-30 ">
+		<section class="container-fluid container-fullw bg-red padding-bottom-30 ">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h2>SERVICES</h2>
-                        <hr>
+                        <h2 class="text-white">SERVICES</h2>
+                        <hr class="white-line">
                         <p class="margin-bottom-30">
                             We are associated with <strong>top professionals and labour</strong> who are trained with the <strong>latest technologies</strong>.
                         </p>
                     </div>
                 </div>
-				<div class="row">
-                    <div class="col-md-4 ">
-						<div class=" figure-wrapper padding-top-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-1.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Property Management</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+				<div class="hi-icon-wrap hi-icon-effect-9 hi-icon-effect-9a padding-top-0">
+				<div class="row min-height-200">
+                    <div class="col-md-4 padding-top-10">
+						<div>
+							<i class='hi-icon fa fa-home fa-5x'><a ui-sref="services.property_management"></a></i>
 						</div>
+						<a ui-sref="services.property_management"><h4 class="padding-top-5 text-white">PROPERTY MANAGEMENT</h4></a>
                     </div>
-					<div class="col-md-4 ">
-						<div class=" figure-wrapper padding-top-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-2.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Medical Services</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+					<div class="col-md-4 padding-top-10">
+						<div>
+							<i class='hi-icon fa fa-ambulance fa-5x'><a ui-sref="services.medical_services"></a></i>
 						</div>
+						<a ui-sref="services.medical_services"><h4 class="padding-top-5 text-white">MEDICAL SERVICES</h4></a>
 					</div>
-					<div class="col-md-4 ">
-						<div class=" figure-wrapper padding-top-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-3.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Auditing &amp; Legal Services</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+					<div class="col-md-4 padding-top-10">
+						<div>
+							<i class='hi-icon fa fa-gavel fa-5x'><a ui-sref="services.legal_services"></a></i>
 						</div>
+						<a ui-sref="services.legal_services"><h4 class="padding-top-5 text-white">AUDITING &amp; LEGAL SERVICES</h4></a>
 					</div>
                 </div>
-				<div class="row">
-                    <div class="col-md-4 col-lg-4 ">
-                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-4.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Document Procurement</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+				<div class="row min-height-200">
+                    <div class="col-md-4 padding-top-10">
+						<div>
+							<i class='hi-icon fa fa-book fa-5x'><a ui-sref="services.document_procurement"></a></i>
 						</div>
+						<a ui-sref="services.document_procurement"><h4 class="padding-top-5 text-white">DOCUMENT PROCUREMENT</h4></a>	
                     </div>
-					<div class="col-md-4 ">
-                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-5.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Travel</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+					<div class="col-md-4 padding-top-10">
+                        <div>
+							<i class='hi-icon fa fa-plane fa-5x'><a ui-sref="services.travel_services"></a></i>
 						</div>
+						<a ui-sref="services.travel_services"><h4 class="padding-top-5 text-white">TRAVEL</h4></a>
                     </div>
-					<div class="col-md-4 ">
-                        <div class=" figure-wrapper padding-top-40 padding-bottom-40">
-							<figure class="effect-goliath">
-								<img style="max-width: 100%; max-height: 180px;" src="assets/images/services-6.jpg" alt="img02"/>
-								<figcaption>
-									<h2 class="text-white"><span>Education &amp; Tracking</span></h2>
-									<p>A little info here</p>
-									<a href="login.registration">View more</a>
-								</figcaption>			
-							</figure>
+					<div class="col-md-4 padding-top-10">
+						<div>
+							<i class='hi-icon fa fa-graduation-cap fa-5x'><a ui-sref="services.education_tracking"></a></i>
 						</div>
+						<a ui-sref="services.education_tracking"><h4 class="padding-top-5 text-white">EDUCATION &amp; TRACKING</h4></a>
                     </div>
+                </div>
                 </div>
             </div>
 		</section>
@@ -970,7 +987,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="text-center text-white">ABOUT US</h2>
-                        <hr class="bg-white" />
+                        <hr class="white-line" />
 					</div>
 					<div class="col-md-12 text-white">
 						<p class="margin-bottom-50">
