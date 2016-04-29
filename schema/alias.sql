@@ -23,35 +23,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `alias`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `alias` (
   `uuid` varchar(64) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `verifyEmailToken` varchar(128) NOT NULL,
-  `verifyEmailExpires` varchar(64) NOT NULL,
-  `resetPasswordToken` varchar(128) NOT NULL,
-  `resetPasswordExpires` varchar(64) CHARACTER SET ucs2 NOT NULL,
-  `agrmntStatus` int(1) NOT NULL DEFAULT '0',
-  `salt` varchar(32) NOT NULL,
-  `hash` varchar(128) NOT NULL,
-  `active` bit(1) NOT NULL DEFAULT b'0',
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`uuid`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `email_2` (`email`);
+  `provider` varchar(10) NOT NULL,
+  `providerId` varchar(128) NOT NULL,
+  `providerEmail` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Social identities of users';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
