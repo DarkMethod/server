@@ -29,13 +29,12 @@ function handleGet(connection,req,res) {
 }
 function handleFind(connection,req,res){
      var find = function find(){
-        connection.query('SELECT uuid, name, email, googleId, facebookId FROM user WHERE uuid = ?', req.params.id, function handleSql(err, rows) {
+		console.log(req.params.id);
+        connection.query('SELECT * FROM alias WHERE uuid = ?', req.params.id, function handleSql(err, rows) {
             if (err){ logAndRespond(err,res); return; }
             if (rows.length === 0){ res.send(204); return; }
             res.send({
-                result: 'success',
-                json:   rows[0],
-                length: 1
+                json:   rows,
             });
             connection.release();
         });

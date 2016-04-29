@@ -426,7 +426,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset>
+							<fieldset>
                                 <legend>
                                     Additional Info
                                 </legend>
@@ -589,7 +589,45 @@
                         </table>
                     </uib-tab>
                     <!-- end: TAB PROJECTS -->
-                </uib-tabset>
+                    <!-- start: TAB SOCIAL ACCOUNTS -->
+					<uib-tab heading="Social Accounts" ng-click="getSocialAccounts()">	
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-white" id="existing-accounts">
+                                    <div class="panel-heading border-light">
+                                        <h6 class="panel-title text-primary">Connected Accounts</h6>
+                                    </div>
+                                    <div class="panel-body">
+										<div ng-repeat = "alias in aliases">
+											<p ng-if="alias.provider === 'google'" ><i class="fa fa-google-plus fa-fw"></i> {{alias.providerEmail}}</p>
+											<p ng-if="alias.provider === 'facebook'" ><i class="fa fa-facebook fa-fw"></i> {{alias.providerEmail}}</p>
+										</div>	
+									</div>	
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel panel-white" id="link-accounts">
+                                    <div class="panel-heading border-light">
+                                        <h6 class="panel-title text-primary">Link Accounts</h6>
+                                    </div>
+                                    <div class="panel-body">							
+										<div class="text-center margin-bottom-5">
+											<a style="width:60%" class="btn btn-social btn-google" ng-click="authenticate('google', 'link')">
+												<span class="fa fa-google"></span> Link Google Account
+											</a>
+										</div>
+										<div class="text-center margin-bottom-5">
+											<a style="width:60%" class="btn btn-social btn-facebook" ng-click="authenticate('facebook', 'link')">
+												<span class="fa fa-facebook"></span> Link Facebook Account
+											</a>
+										</div>	
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</uib-tab>
+                    <!-- end: TAB SOCIAL ACCOUNTS -->
+				</uib-tabset>
                 <!-- end: USER TABSET -->
             </div>
         </div>

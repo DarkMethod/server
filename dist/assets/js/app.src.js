@@ -68107,7 +68107,7 @@ function ($translateProvider) {
 
 }]);
 app.config(function($authProvider) {
-
+	$authProvider.header = 'yay';
     $authProvider.google({
       clientId: '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com'
     });
@@ -68823,6 +68823,10 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	    url: '/login',
 	    template: '<div ui-view class="fade-in-right-big smooth"></div>',
 		resolve: loadSequence('authCtrl', 'modal'),
+		onEnter:['$state', '$auth',function($state, $auth){
+				if($auth.isAuthenticated()){
+					$state.go('services.home');
+				}}],
 	    abstract: true
 	}).state('login.login', {
 	    url: '/login/:status',
@@ -71020,14 +71024,29 @@ app.controller('authCtrl', [
 				$state.go('services.home');
 			})
 			.catch(function(response) {
+				var message = {};
 				if(modal.isOpen('signUp')){
 					modal.close('signUp');
 				}
 				if(modal.isOpen('signIn')){
 					modal.close('signIn');
 				}
-				console.log(response.data);
-			});
+				if(response.status === 409){
+					message.title = 'Existing Account!';
+					message.text = 'You are already logged in with this '+provider+' account';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);
+				}else{
+					message.title = 'Oops!';
+					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);	
+				}
+			});	
 		};
 		
 		$scope.isAuthenticated = function() {

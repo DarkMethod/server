@@ -180,14 +180,29 @@ app.controller('authCtrl', [
 				$state.go('services.home');
 			})
 			.catch(function(response) {
+				var message = {};
 				if(modal.isOpen('signUp')){
 					modal.close('signUp');
 				}
 				if(modal.isOpen('signIn')){
 					modal.close('signIn');
 				}
-				console.log(response.data);
-			});
+				if(response.status === 409){
+					message.title = 'Existing Account!';
+					message.text = 'You are already logged in with this '+provider+' account';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);
+				}else{
+					message.title = 'Oops!';
+					message.text = 'We seem to be having some trouble. Please try again later.';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);	
+				}
+			});	
 		};
 		
 		$scope.isAuthenticated = function() {

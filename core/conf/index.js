@@ -84,7 +84,7 @@ var tool = require('cloneextend'),
     conf.defaults = {
         application:    {
             jwtSecret   : 'SAOIRSE',
-            routes      : ['user'],
+            routes      : ['user', 'alias'],
             middleware  : ['compress','json','urlencoded','logger']
         },
         server:         {

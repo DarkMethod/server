@@ -6,20 +6,30 @@
 				<img src="assets/images/logo-transparent-background.png" alt="{{app.name}}" class="img-responsive" />
 			</a>
 		</div>
-        <p class="text-center text-dark text-bold text-extra-large margin-top-15">
+        <h5 class="text-center text-dark text-bold text-uppercase margin-top-15">
             Welcome to Yedupudi
-        </p>
-        <p class="text-center">
-            We understand the NRI. 
-        </p>
+        </h5>
         <!-- start: LOGIN BOX -->
         <div class="box-login" ng-controller="authCtrl">
 			<div class="text-center">
 				<strong>{{ message }}</strong>
+			</div>	
+            <h5 class="margin-top-10 text-bold text-dark text-center">
+                SIGN IN VIA
+            </h5>
+            <div class="social-icons text-center" ng-controller="authCtrl">
+                <ul>
+                    <li class="social-google" uib-tooltip="Google" tooltip-placement="top">
+                        <a ng-click="authenticate('google')"> Google </a>
+                    </li>
+                    <li class="social-facebook" uib-tooltip="Facebook" tooltip-placement="top">
+                        <a ng-click="authenticate('facebook')"> Facebook </a>
+                    </li>
+                </ul>
+            </div>
+			<div class="padding-top-10 padding-bottom-10">
+				<h5 id="modal-divider" class="text-bold text-dark"><span id="modal-divider-content-login">OR</span></h5>
 			</div>
-			<p class="text-center">
-				Please enter your name and password to log in.
-			</p>
             <form class="form-login" name="Form" ng-submit="signIn()" novalidate>
                 <div class="form-group" ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
                     <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="Email*" required>
@@ -36,10 +46,6 @@
                     <button type="submit" ng-disabled="Form.$invalid" class="btn btn-red btn-block">
                         Sign in
                     </button>
-                    <div class="checkbox clip-check check-primary">
-                        <input type="checkbox" id="remember" value="1">
-                        <label for="remember"> Keep me signed in </label>
-                    </div>
                 </div>
                 <div class="new-account text-center">
                     Don't have an account yet?

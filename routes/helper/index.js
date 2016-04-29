@@ -17,8 +17,6 @@ var generateJWT = function(user){
 	exp.setDate(today.getDate() + 60);
 	return jwt.sign({
 	uuid: user.uuid,
-	email: user.email,
-	name: user.name,
 	exp: parseInt(exp.getTime() /1000),
 	}, conf.application.jwtSecret);
  };
@@ -67,33 +65,42 @@ exports.signupHandler = function(req, res){
 				connection.release();
 				return res.status(409).send({ message: 'Email is already taken' });
 			}
-			
-			var user = {};
-			var cipher = setPassword(req.body.password);
-			user.name = req.body.name;
-			user.email = req.body.email;
-			user.uuid = uuid.v4();
-			user.salt = cipher.salt;
-			user.hash = cipher.hash;
-			user.verifyEmailToken = crypto.randomBytes(16).toString('hex');;
-			user.verifyEmailExpires = Date.now() + 3600000; // 1 hr
-			
-			connection.query('INSERT INTO user SET ?', user, function (err) {
-				if (err){ logAndRespond(err, res); return; }
-				
-				var message = {};
-				message.to = user.email;
-				message.subject = 'Activate your Yedupudi account';
-				message.html = "Hello there,<br> Thanks for registering with Yedupudi.<br>Click on the following link to activate your account.<br><a href="+conf.mailer.verifyEmailLink+user.verifyEmailToken+">Activate my account</a><br>Cheers,<br>TEAM Yedupudi";
-				
-				sendMail(message, function(err, sent){
-					if(err){ logAndRespond(err, res); return; }
-					if(sent){
+			else{
+				connection.query('SELECT * FROM alias WHERE providerEmail= ?', req.body.email, function (err, rows) {
+					if (err){ logAndRespond(err, res); return; }
+					if(rows.length){
 						connection.release();
-						return res.status(200).send();	
+						return res.status(409).send({ message: 'Email is already taken' });
 					}
-				});	
-			});
+
+					var user = {};
+					var cipher = setPassword(req.body.password);
+					user.name = req.body.name;
+					user.email = req.body.email;
+					user.uuid = uuid.v4();
+					user.salt = cipher.salt;
+					user.hash = cipher.hash;
+					user.verifyEmailToken = crypto.randomBytes(16).toString('hex');;
+					user.verifyEmailExpires = Date.now() + 3600000; // 1 hr
+			
+					connection.query('INSERT INTO user SET ?', user, function (err) {
+						if (err){ logAndRespond(err, res); return; }
+				
+						var message = {};
+						message.to = user.email;
+						message.subject = 'Activate your Yedupudi account';
+						message.html = "Hello there,<br> Thanks for registering with Yedupudi.<br>Click on the following link to activate your account.<br><a href="+conf.mailer.verifyEmailLink+user.verifyEmailToken+">Activate my account</a><br>Cheers,<br>TEAM Yedupudi";
+				
+						sendMail(message, function(err, sent){
+							if(err){ logAndRespond(err, res); return; }
+							if(sent){
+								connection.release();
+								return res.status(200).send();	
+							}
+						});	
+					});
+				});
+			}
 		});
 	});
 };
@@ -179,78 +186,151 @@ exports.googleHandler = function(req, res){
 		if (profile.error) {
 			return res.status(500).send({message: profile.error.message});
 		}
-        // Step 3b. Create a new user account or return an existing one.
-		req.mysql.getConnection(function(err, connection){
-			if (err){ logAndRespond(err, res); return; }
-			connection.query('SELECT uuid,email,name FROM user WHERE googleId = ?', profile.sub, function(err, rows) {
+		 // Step 3a. Link user accounts.
+		if (req.header('Authorization')) {
+			req.mysql.getConnection(function(err, connection){
 				if (err){ logAndRespond(err, res); return; }
-				if (!rows.length) {
-					var user = {};
-					user.uuid    = uuid.v4();
-					user.googleId = profile.sub;
-					user.name = profile.name;
-					user.email = profile.email;
-					
-					connection.query('INSERT INTO user SET ?', user, function(err) {
-						if (err){ logAndRespond(err, res); return; }
-						connection.release();
-						return res.status(200).send({ token: generateJWT(user) });	
+				console.log(profile.sub);
+				connection.query('SELECT * FROM alias WHERE provider= ? AND providerId= ?',['google', profile.sub], function(err, rows) {
+					if (rows.length) {
+						return res.status(409).send({ message: 'This google account is already linked.' });
+					}
+					var token = req.header('Authorization').split(' ')[1];
+					var payload = jwt.decode(token, conf.application.jwtSecret);
+					connection.query('SELECT * FROM user WHERE uuid= ?', payload.uuid, function(err, rows) {
+						if (!rows.length) {
+							return res.status(400).send({ message: 'User not found' });
+						}
+						var alias = {};
+						alias.uuid = rows[0].uuid;
+						alias.provider = 'google';
+						alias.providerId = profile.sub;
+						alias.providerEmail = profile.email;
+						
+						connection.query('INSERT INTO alias SET ?', alias, function (err) {
+							if (err){ logAndRespond(err, res); return; }
+							connection.release();
+							res.send({ token: generateJWT(rows[0])});
+						});
 					});
-				}
-				else {
-					connection.release();
-					return res.status(200).send({ token: generateJWT(rows[0]) });
-				}	
+				});
 			});	
-		});
+		}else{ 
+        // Step 3b. Create a new user account or return an existing one.
+			req.mysql.getConnection(function(err, connection){
+				if (err){ logAndRespond(err, res); return; }
+				connection.query('SELECT * FROM alias WHERE provider= ? AND providerId= ?', ['google', profile.sub], function(err, rows) {
+					if (err){ logAndRespond(err, res); return; }
+					if (!rows.length) {
+						var user = {};
+						var alias = {};
+						user.name = profile.name;
+						user.email = profile.email;
+						user.uuid = alias.uuid = uuid.v4();
+						alias.provider = 'google';
+						alias.providerId = profile.sub;
+						alias.providerEmail = profile.email;
+						
+						connection.query('INSERT INTO alias SET ?', alias, function(err) {
+							if (err){ logAndRespond(err, res); return; }
+							connection.query('INSERT INTO user SET ?', user, function(err) {
+								if (err){ logAndRespond(err, res); return; }
+								connection.release();
+								return res.status(200).send({ token: generateJWT(user) });	
+							});
+						});
+					}
+					else {
+						connection.release();
+						return res.status(200).send({ token: generateJWT(rows[0]) });
+					}	
+				});	
+			});
+		}	
     });
   });
 };
 exports.facebookHandler = function(req, res) {
-  var fields = ['id', 'email', 'name'];
-  var accessTokenUrl = 'https://graph.facebook.com/v2.5/oauth/access_token';
-  var graphApiUrl = 'https://graph.facebook.com/v2.5/me?fields=' + fields.join(',');
-  var params = {
-    code: req.body.code,
-    client_id: req.body.clientId,
-    client_secret: conf.facebookAuth.clientSecret,
-    redirect_uri: req.body.redirectUri
-  };
+	var fields = ['id', 'email', 'name'];
+	var accessTokenUrl = 'https://graph.facebook.com/v2.5/oauth/access_token';
+	var graphApiUrl = 'https://graph.facebook.com/v2.5/me?fields=' + fields.join(',');
+	var params = {
+		code: req.body.code,
+		client_id: req.body.clientId,
+		client_secret: conf.facebookAuth.clientSecret,
+		redirect_uri: req.body.redirectUri
+	};
 
-  // Step 1. Exchange authorization code for access token.
-  request.get({ url: accessTokenUrl, qs: params, json: true }, function(err, response, accessToken) {
-    if (response.statusCode !== 200) {
-      return res.status(500).send({ message: accessToken.error.message });
+	// Step 1. Exchange authorization code for access token.
+	request.get({ url: accessTokenUrl, qs: params, json: true }, function(err, response, accessToken) {
+		if (response.statusCode !== 200) {
+		return res.status(500).send({ message: accessToken.error.message });
     }
 
     // Step 2. Retrieve profile information about the current user.
     request.get({ url: graphApiUrl, qs: accessToken, json: true }, function(err, response, profile) {
-      if (response.statusCode !== 200) {
-        return res.status(500).send({ message: profile.error.message });
-      }
-      req.mysql.getConnection(function(err, connection){
-			if (err){  throw err; }
-			connection.query('SELECT uuid,email,name FROM user WHERE facebookId = ?', profile.id, function(err, rows) {
+		if (response.statusCode !== 200) {
+			return res.status(500).send({ message: profile.error.message });
+		}
+		// Step 3a. Link user accounts.
+		if (req.header('Authorization')) {
+			req.mysql.getConnection(function(err, connection){
 				if (err){ logAndRespond(err, res); return; }
-				if (!rows.length) {
-					var user = {};
-					user.uuid    = uuid.v4();
-					user.facebookId = profile.id;
-					user.name = profile.name;
-					user.email = profile.email;
-					
-					connection.query('INSERT INTO user SET ?', user, function(err) {
-						if (err){ logAndRespond(err, res); return; }
-						connection.release();
-						return res.status(200).send({ token: generateJWT(user) });	
+				connection.query('SELECT * FROM alias WHERE provider= ? AND providerId= ?',['facebook', profile.id], function(err, rows) {
+					if (rows.length) {
+						return res.status(409).send({ message: 'This facebook account is already linked.' });
+					}
+					var token = req.header('Authorization').split(' ')[1];
+					var payload = jwt.decode(token, conf.application.jwtSecret);
+					connection.query('SELECT * FROM user WHERE uuid= ?', payload.uuid, function(err, rows) {
+						if (!rows.length) {
+							return res.status(400).send({ message: 'User not found' });
+						}
+						var alias = {};
+						alias.uuid = rows[0].uuid;
+						alias.provider = 'facebook';
+						alias.providerId = profile.id;
+						alias.providerEmail = profile.email;
+						
+						connection.query('INSERT INTO alias SET ?', alias, function (err) {
+							if (err){ logAndRespond(err, res); return; }
+							connection.release();
+							res.send({ token: generateJWT(rows[0])});
+						});
 					});
-				}
-				else { 
-					connection.release();
-					return res.status(200).send({ token: generateJWT(rows[0]) });
-				}	
+				});
 			});	
-		});
+		}else{
+			req.mysql.getConnection(function(err, connection){
+				if (err){ logAndRespond(err, res); return; }
+				connection.query('SELECT * FROM alias WHERE provider= ? AND providerId= ?', ['facebook', profile.id], function(err, rows) {
+					if (err){ logAndRespond(err, res); return; }
+					if (!rows.length) {
+						var user = {};
+						var alias = {};
+						user.name = profile.name;
+						user.email = profile.email;
+						user.uuid = alias.uuid = uuid.v4();
+						alias.provider = 'facebook';
+						alias.providerId = profile.id;
+						alias.providerEmail = profile.email;
+						
+						connection.query('INSERT INTO alias SET ?', alias, function(err) {
+							if (err){ logAndRespond(err, res); return; }
+							connection.query('INSERT INTO user SET ?', user, function(err) {
+								if (err){ logAndRespond(err, res); return; }
+								connection.release();
+								return res.status(200).send({ token: generateJWT(user) });	
+							});
+						});
+					}
+					else {
+						connection.release();
+						return res.status(200).send({ token: generateJWT(rows[0]) });
+					}	
+				});	
+			});
+		}	
     });
   });
 };
