@@ -31090,7 +31090,7 @@ figure.effect-goliath:hover p {
   padding-top: 168px;
   background-image: url("../images/landing-page-cover.jpg");
   background-size:cover;
-  background-position-y: 25%;
+  background-position-y: 19%;
 }
 @media (min-width: 992px) {
   .app-navbar-fixed .landing-page .landing-content {
