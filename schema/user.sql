@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
+-- version 4.6.0
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Apr 28, 2016 at 05:35 PM
--- Server version: 5.6.29
--- PHP Version: 5.6.19
+-- Generation Time: May 21, 2016 at 12:08 PM
+-- Server version: 5.6.30
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,6 +30,7 @@ CREATE TABLE `user` (
   `uuid` varchar(64) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(60) NOT NULL,
   `verifyEmailToken` varchar(128) NOT NULL,
   `verifyEmailExpires` varchar(64) NOT NULL,
   `resetPasswordToken` varchar(128) NOT NULL,
@@ -37,9 +38,16 @@ CREATE TABLE `user` (
   `agrmntStatus` int(1) NOT NULL DEFAULT '0',
   `salt` varchar(32) NOT NULL,
   `hash` varchar(128) NOT NULL,
-  `active` bit(1) NOT NULL DEFAULT b'0',
+  `active` int(1) NOT NULL DEFAULT '0',
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`uuid`, `name`, `email`, `phone`, `verifyEmailToken`, `verifyEmailExpires`, `resetPasswordToken`, `resetPasswordExpires`, `agrmntStatus`, `salt`, `hash`, `active`, `updated`) VALUES
+('0b9b8c28-2b7e-4f35-9e39-4137972248c2', 'Rohit Markam', 'mrmarkam@gmail.com', '', 'e582932a571b388f2cf9129c81d8dd26', '1463510265484', '', '', 0, '6a5fda4927b580561d8ef46066ba3ed2', '19bcc9dfa15d604b7453503800fb0fa55ac416c17787bc87aa7ac469559495c85115674a959bef8b886d3f5fa6f241926484655bf3c6d21d57fde4e561517a41', 1, '2016-05-17 17:45:22');
 
 --
 -- Indexes for dumped tables
