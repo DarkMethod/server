@@ -1,4 +1,5 @@
 <div ng-controller='servicesCtrl'>
+	<!--
 	<div class="container-fluid container-fullw padding-bottom-30 bg-black padding-top-40">
 		<div class="container">
 			<div class="row">
@@ -7,8 +8,9 @@
 				</div>	
 			</div>
 		</div>
-	</div>    
-	<div class="container-fluid container-fullw padding-bottom-10">
+	</div>
+	-->	
+	<div class="container-fluid container-fullw-service padding-bottom-10">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -22,7 +24,8 @@
 												<div class="panel-body no-padding height-200">
 													<!-- start: CAROUSEL -->
 													<slick dots=true arrows=false infinite=false speed=300 autoplay=true autoplay-speed=6000 slides-to-show=1 slides-to-scroll=1 class="carousel">
-														<div class="slide padding-20 height-200" style="background: url('assets/images/carousel/01.jpg')">
+														<div ng-repeat="img in service.imgs" class="slide padding-20 height-200" style="background: url({{ img.url }})">
+															<!--
 															<h5 class="text-bold text-extra-small text-dark-transparent text-uppercase">Prjects <i class="fa fa-arrow-circle-o-right"></i></h5>
 															<letter-icon data="Alpha" color="#947499" box="round" size="lg" class="margin-right-5"></letter-icon><h3 class="inline-block">Project Alpha</h3>
 															<div class="block margin-top-10 ">
@@ -31,16 +34,7 @@
 																	track progress
 																</a>
 															</div>
-														</div>
-														<div class="slide padding-20 height-200" style="background: url('assets/images/carousel/02.jpg')">
-															<h5 class="text-bold text-extra-small text-dark-transparent text-uppercase">Prjects <i class="fa fa-arrow-circle-o-right"></i></h5>
-															<letter-icon data="Omega" color="#7F8C8D" box="round" size="lg" class="margin-right-5"></letter-icon><h3 class="inline-block">Omega</h3>
-															<div class="block margin-top-10 ">
-																<span class="label background-dark text-white margin-top-10 margin-right-5">45%</span><span class="cl-effect-19"></span>
-																<a href="#" class="text-extra-small">
-																	track progress
-																</a>
-															</div>
+															-->
 														</div>
 													</slick>
 													<!-- end: CAROUSEL -->
@@ -61,32 +55,42 @@
 											</ul>
 										</div>
 										<div class="col-md-6 padding-top-20">
-											<div style="border:2px solid #C82E29;" class="panel panel-red">
-												<div class="panel-heading padding-left-10">
-													<h4 class="panel-title text-bold">PRICING</h4>
-												</div>
-												<div style="padding:0" class="panel-body bg-white">
-													<div class="table-responsive">
-														<table class="table">
-															<thead class="bg-light-grey">
-																<tr>
-																	<td class="text-large text-dark text-bold">
-																		Service
-																	</td>
-																	<td class="text-large text-dark text-bold">
-																		Price
-																	</td>
-																</tr>
-															</thead>
-															<tbody>
-																<tr ng-repeat="item in service.items">
-																	<td class="text-bold" data-title="'Service'">{{item.title}}</td>
-																	<td class="text-bold" data-title="'Price'">{{item.price}}</td>
-																</tr>                             
-															</tbody>
-														</table>
+											<div class="row">
+												<div style="border:2px solid #C82E29;" class="panel panel-pricing panel-red">
+													<div class="panel-heading padding-left-10">
+														<h4 class="panel-title text-bold">PRICING</h4>
+													</div>
+													<div style="padding:0" class="panel-body bg-white">
+														<div class="table-responsive">
+															<table class="table">
+																<thead class="bg-light-grey">
+																	<tr>
+																		<td class="text-large text-dark text-bold">
+																			Service
+																		</td>
+																		<td class="text-large text-dark text-bold text-center">
+																			Price/Quote
+																		</td>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr ng-repeat="item in service.items">
+																		<td class="text-bold" data-title="'Service'">{{item.title}}</td>
+																		<td ng-if="item.price" class="text-bold text-center" data-title="'Price'">{{item.price}}</td>
+																		<td ng-if="!item.price" class="text-bold text-center">Quote</td>
+																	</tr>                             
+																</tbody>
+															</table>
+														</div>
 													</div>
 												</div>
+											</div>
+											<div class="row">
+												<p style="text-align:center">
+													<button type="button" style="width:60%" class="btn btn-red btn-custom-block btn-scroll btn-scroll-top fa-envelope-o" ng-click="openQuoteModal(service.id)">
+														<span>Request Quote</span>
+													</button>
+												</p>	
 											</div>
 										</div>
 									</div>
@@ -148,3 +152,49 @@
 	</div>
 	-->
 </div>
+<script type="text/ng-template" id="quoteModal.html">
+    <div class="modal-header text-center padding-top-20 margin-bottom-0 no-border">
+        <a ng-click="cancelQuoteModal('quoteModal')"><i class="ti ti-close ti-tw pull-right"></i></a>
+		<h5 class="modal-title text-bold text-dark">GET A QUICK QUOTE</h5>
+        <p class="text-small margin-top-10">Tell us what you need and we'll get back to you</a></p>
+    </div>
+	<div class="modal-body padding-bottom-50 padding-top-0">
+		<div class="row">	
+			<div class="col-md-6 col-md-offset-3">
+				<form class="form-quote" name="Form" ng-submit="requestQuote(serviceId)" novalidate>
+					<div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid, 'has-success':Form.name.$valid}">
+						<input type="text" class="form-control" name="name" ng-model="quote.name" placeholder="Name*" required>
+						<span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$error.required">Name is required.</span>
+					</div>
+					<div class="form-group" ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+						<input type="email" class="form-control" name="email" ng-model="quote.email" placeholder="Email*" required>
+						<span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+						<span class="error text-small text-white block" ng-if="Form.email.$dirty && Form.email.$invalid">Please provide a valid email.</span>
+					</div>
+					<div class="form-group" ng-class="{'has-error':Form.phone.$dirty && Form.phone.$invalid, 'has-success':Form.phone.$valid}">
+						<input type="phone" class="form-control" name="phone" ng-model="quote.phone" placeholder="Phone No.*" required>
+						<span class="error text-small block" ng-if="Form.phone.$dirty && Form.phone.$error.required">Phone no. is required.</span>
+					</div>
+					<div class="form-group">
+						<label>Services you need help with</label>
+						<div ng-repeat="item in quote.items" class="checkbox clip-check check-danger checkbox-inline">
+                            <input class="form-control" type="checkbox" id= "{{ item.id }}" name="services" ng-model="item.selected">
+                            <label for="{{ item.id }}">
+                                {{ item.title }}
+                            </label>
+                        </div>
+					</div>					
+					<div class="form-group">
+                        <label>Message</span> </label>
+						<textarea ng-model="quote.message" name ="message" class="form-control autosize area-animated msd-elastic: \n;" placeholder="Add a message..."></textarea>
+                    </div>
+					<div class="form-actions">
+						<button type="submit" ng-disabled="Form.$invalid" class="btn btn-red btn-block">
+							Submit
+						</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+    </div>
+</script>

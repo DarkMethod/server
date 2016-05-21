@@ -1,11 +1,11 @@
 <table class="table no-bg">
     <tr>
 		<td rowspan="2">
-            <strong>Update: </strong> {{p.upd.desc}}
-            <input type="hidden" name="id" value="{{p.id}}">
+            <strong>Message: </strong> {{task.message}}
+            <input type="hidden" name="id" value="{{task.uuid}}">
         </td>
         <td><strong>By: </strong></td>
-        <td><strong>{{p.upd.by}}</strong></td>
+        <td><strong>{{}}</strong></td>
         <td>
             <div class="pull-right">
                 <!--
@@ -30,7 +30,7 @@
 		-->
     </tr>
     <tr>
-        <td colspan ="2"><strong>On: </strong>{{p.upd.on}}</td>
+        <td colspan ="2"><strong>On: </strong>{{}}</td>
         <!--
 		<td>
             <input class="form-control" type="text" name="ln" class="w100" ng-model="p.ln"> 

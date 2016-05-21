@@ -167,13 +167,19 @@ body {
   color: rgba(0, 0, 0, 0.7);
 }
 .navbar .navbar-collapse .navbar-right > li > a i {
-  color: rgba(0, 0, 0, 0.7) !important;
+  /**
+  color: rgba(0, 0, 0, 0.7) ;
+  **/
+  color: rgba(255,255,255,1) ;
 }
 .navbar .navbar-collapse .navbar-right > li > a:hover {
   color: black;
 }
 .navbar .navbar-collapse .navbar-right > li > a:hover i {
-  color: black !important;
+  /**
+  color: black ;
+  **/
+  color: rgba(255,255,255,1) ;
 }
 .navbar .navbar-collapse .navbar-right .angular-notifications-icon {
   background: #C82E29;

@@ -16,7 +16,11 @@ var generateJWT = function(user){
 	var exp = new Date(today);
 	exp.setDate(today.getDate() + 60);
 	return jwt.sign({
-	uuid: user.uuid,
+	uuid	: user.uuid,
+	name	: user.name,
+	email	: user.email,
+	phone	: user.phone,
+	type: user.type,
 	exp: parseInt(exp.getTime() /1000),
 	}, conf.application.jwtSecret);
  };
@@ -82,7 +86,7 @@ exports.signupHandler = function(req, res){
 					user.hash = cipher.hash;
 					user.verifyEmailToken = crypto.randomBytes(16).toString('hex');;
 					user.verifyEmailExpires = Date.now() + 3600000; // 1 hr
-			
+					
 					connection.query('INSERT INTO user SET ?', user, function (err) {
 						if (err){ logAndRespond(err, res); return; }
 				
@@ -92,7 +96,14 @@ exports.signupHandler = function(req, res){
 						message.html = "Hello there,<br> Thanks for registering with Yedupudi.<br>Click on the following link to activate your account.<br><a href="+conf.mailer.verifyEmailLink+user.verifyEmailToken+">Activate my account</a><br>Cheers,<br>TEAM Yedupudi";
 				
 						sendMail(message, function(err, sent){
-							if(err){ logAndRespond(err, res); return; }
+							if(err){ 
+								logAndRespond(err, res); 
+								connection.query('DELETE FROM user WHERE uuid= ?', user.uuid, function (err) {
+									if (err){ logAndRespond(err, res); return; }
+									connection.release();
+									return res.status(500).send();	
+								});
+							}	
 							if(sent){
 								connection.release();
 								return res.status(200).send();	
@@ -140,29 +151,65 @@ exports.forgotPasswordHandler = function(req, res){
 };
 
 exports.loginHandler = function(req, res){
-	req.mysql.getConnection(function(err, connection){
-		if (err){ logAndRespond(err, res); return; }
-		connection.query('SELECT * FROM user WHERE email= ?', req.body.email, function (err, rows) {
+	if(req.body.type === 'admin'){	
+		req.mysql.getConnection(function(err, connection){
 			if (err){ logAndRespond(err, res); return; }
-			if(!rows.length){
-				connection.release();
-				return res.status(401).send();
-			}
-			var user = {};
-			var salt = rows[0].salt;
-			var hash = rows[0].hash;
-			user.name = rows[0].name;
-			user.email = rows[0].email;
-			user.uuid = rows[0].uuid;
+			connection.query('SELECT * FROM admin WHERE email= ?', req.body.email, function (err, rows) {
+				if (err){ logAndRespond(err, res); return; }
+				if(!rows.length){
+					connection.release();
+					return res.status(401).send();
+				}
+				var user = {};
+				var salt = rows[0].salt;
+				var hash = rows[0].hash;
+				user.uuid = rows[0].uuid;
+				user.name = rows[0].name;
+				user.email = rows[0].email;
+				user.phone = rows[0].phone;
+				user.type = 'admin';
 			
-			if (!( hash === crypto.pbkdf2Sync(req.body.password, salt, 1000, 64).toString('hex'))){
+				if (!( hash === crypto.pbkdf2Sync(req.body.password, salt, 1000, 64).toString('hex'))){
+					connection.release();
+					return res.status(401).send();
+				}
 				connection.release();
-				return res.status(401).send();
-			}
-			connection.release();
-			return res.status(200).send({ token: generateJWT(user) });
+				return res.status(200).send({ token: generateJWT(user) });
+			});
+		});	
+	}else{
+		req.mysql.getConnection(function(err, connection){
+			if (err){ logAndRespond(err, res); return; }
+			connection.query('SELECT * FROM user WHERE email= ?', req.body.email, function (err, rows) {
+				if (err){ logAndRespond(err, res); return; }
+				if(!rows.length){
+					connection.release();
+					return res.status(401).send();
+				}
+				if(!rows[0].active){
+					connection.release();
+					return res.status(403).send();
+				}
+				
+				var user = {};
+				var salt = rows[0].salt;
+				var hash = rows[0].hash;
+				user.uuid = rows[0].uuid;
+				user.name = rows[0].name;
+				user.email = rows[0].email;
+				user.phone = rows[0].phone;
+				user.type = 'client';
+			
+				if (!( hash === crypto.pbkdf2Sync(req.body.password, salt, 1000, 64).toString('hex'))){
+					connection.release();
+					return res.status(401).send();
+				}
+				connection.release();
+				return res.status(200).send({ token: generateJWT(user) });
+			});
 		});
-	});	
+	
+	}
 };
 
 exports.googleHandler = function(req, res){
@@ -206,6 +253,7 @@ exports.googleHandler = function(req, res){
 						alias.provider = 'google';
 						alias.providerId = profile.sub;
 						alias.providerEmail = profile.email;
+						rows[0].type = 'client';	
 						
 						connection.query('INSERT INTO alias SET ?', alias, function (err) {
 							if (err){ logAndRespond(err, res); return; }
@@ -224,9 +272,11 @@ exports.googleHandler = function(req, res){
 					if (!rows.length) {
 						var user = {};
 						var alias = {};
+						user.uuid = alias.uuid = uuid.v4();
 						user.name = profile.name;
 						user.email = profile.email;
-						user.uuid = alias.uuid = uuid.v4();
+						user.phone = '';
+						user.type = 'client';
 						alias.provider = 'google';
 						alias.providerId = profile.sub;
 						alias.providerEmail = profile.email;
@@ -241,6 +291,7 @@ exports.googleHandler = function(req, res){
 						});
 					}
 					else {
+						rows[0].type = 'client';
 						connection.release();
 						return res.status(200).send({ token: generateJWT(rows[0]) });
 					}	
@@ -291,6 +342,7 @@ exports.facebookHandler = function(req, res) {
 						alias.provider = 'facebook';
 						alias.providerId = profile.id;
 						alias.providerEmail = profile.email;
+						rows[0].type = 'client';
 						
 						connection.query('INSERT INTO alias SET ?', alias, function (err) {
 							if (err){ logAndRespond(err, res); return; }
@@ -308,9 +360,11 @@ exports.facebookHandler = function(req, res) {
 					if (!rows.length) {
 						var user = {};
 						var alias = {};
+						user.uuid = alias.uuid = uuid.v4();
 						user.name = profile.name;
 						user.email = profile.email;
-						user.uuid = alias.uuid = uuid.v4();
+						user.phone = '';
+						user.type = 'client';
 						alias.provider = 'facebook';
 						alias.providerId = profile.id;
 						alias.providerEmail = profile.email;
@@ -325,6 +379,7 @@ exports.facebookHandler = function(req, res) {
 						});
 					}
 					else {
+						rows[0].type = 'client';
 						connection.release();
 						return res.status(200).send({ token: generateJWT(rows[0]) });
 					}	
@@ -391,6 +446,7 @@ exports.updatePasswordHandler = function(req, res){
 				
 				connection.query('UPDATE user SET ? WHERE uuid='+connection.escape(rows[0].uuid), user, function (err) {
 					if (err){ logAndRespond(err, res); console.log('here'); return; }
+					rows[0].type = 'client';
 					connection.release();
 					return res.status(200).send({ token :	generateJWT(rows[0]) });
 				});		

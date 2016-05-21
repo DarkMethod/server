@@ -3,15 +3,15 @@
   * controller for user authentication.
 */
 app.controller('authCtrl', [
+	'$rootScope',
 	'$scope',
 	'$state',
 	'$stateParams',
 	'$auth',
 	'$http',
-	'$uibModal',
 	'modal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, $uibModal, modal, SweetAlert){
+	function($rootScope, $scope, $state, $stateParams, $auth, $http, modal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -96,19 +96,40 @@ app.controller('authCtrl', [
 			});
 		};
 
-		$scope.signIn = function(){
-			$auth.login($scope.user) .then(function(response) {
+		$scope.signIn = function(type){
+			var user = {};
+			if(type==='admin'){
+				user = $scope.user;
+				user.type = 'admin';
+			}else{
+				user = $scope.user;
+				user.type = 'client';	
+			}
+			
+			$auth.login(user) .then(function(response) {
 				$auth.setToken(response.data.token);
+				$rootScope.user = $auth.getPayload();
 				if(modal.isOpen('signIn')){
 					modal.close('signIn');
 				}
-				$state.go('services.home');
+				if(type==='admin'){
+					$state.go('app.dashboard');
+				}else{
+					$state.go('services.home');
+				}
 			})
 			.catch(function(response) {
 				var message = {};
 				if(response.status === 401){
 					message.title = 'Invalid!';
 					message.text = 'Invalid email and/or password';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);
+				}else if(response.status === 403){
+					message.title = 'Invalid!';
+					message.text = 'You have not activated your account. Activate your account by clicking on the link that was mailed to you after sign-up.';
 					if(modal.isOpen('signIn')){
 						modal.close('signIn');
 					}

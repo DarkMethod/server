@@ -1,0 +1,44 @@
+<!-- start: BREADCRUMB -->
+<div class="breadcrumb-wrapper">
+    <h4 class="mainTitle no-margin" translate="dashboard.WELCOME" translate-values="{ appName: app.name }"><!-- NGTABLE -->WELCOME TO DASHBOARD</h4>
+	<!--translate="sidebar.nav.tables.DATA"-->
+    <div ncy-breadcrumb class="pull-right"></div>
+</div>
+<!-- end: BREADCRUMB -->
+<!-- start: INLINE EDIT EXAMPLE -->
+<div class="container-fluid container-fullw-dashboard bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <h5 class="over-title margin-bottom-15"><!--Inline --> <span class="text-bold"><!--edit example-->Tasks</span></h5>
+                    <div ng-controller="taskCtrl">
+						<div class="table-responsive">
+                            <table ng-table="tableParams" class="table">
+                                <tbody ng-repeat="task in $data">
+                                    <tr id="tr{{task.uuid}}" ng-class-odd="'odd'" ng-class-even="'even'">
+                                        <td class="rowTd" data-title="'Service'" sortable="'service'">{{task.service}}</td>
+                                        <td class="rowTd" data-title="'Date of Request'" sortable="'dateOfRequest'">{{task.dateOfRequest}}</td>
+                                        <td class="rowTd" data-title="'Name'" sortable="'name'">{{task.name}}</td>
+                                        <td class="rowTd" data-title="'Phone'" sortable="'phone'">{{task.phone}}</td>
+                                        <td class="rowTd" data-title="'Email'" sortable="'email'">{{task.email}}</td>
+                                        <td class="rowTd">
+                                            <div class="pull-right margin-right-10">
+                                                <input type=button class="btn btn-primary btn-o btn-sm" id="editRowBtn{{task.uuid}}" value="Details"
+                                                       ng-click="setEditId(task.uuid)">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="editId===task.uuid" ng-if="editId===task.uuid">
+                                        <td colspan="7" ng-include src="'assets/views/row_details.html'"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: INLINE EDIT EXAMPLE -->

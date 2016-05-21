@@ -9,8 +9,9 @@
                     <!-- end: RESPONSIVE MENU TOGGLER -->
                     <!-- start: LOGO -->
                     <a ui-sref="landing.welcome" class="navbar-brand">
-						YEDUPUDI
+						<img src="assets/images/white-logo-transparent-background.png" alt="Yedupudi" style="height:80px;width:auto">
 						<!--
+						YEDUPUDI
 						<h2 id="landing-page-brand-title">{{app.name}}</h2>
 						
 						<img src="assets/images/logo.png" alt="Clip-Two">
@@ -21,7 +22,7 @@
                 <div class="navbar-collapse collapse" uib-collapse="landingNavbarCollapsed" ng-init="landingNavbarCollapsed = true" off-click="landingNavbarCollapsed = true" off-click-if='!landingNavbarCollapsed' off-click-filter="'#landing-menu-toggler'">
                     <ul ng-if="!isAuthenticated()" class="nav navbar-nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="#landing-header" data-ct-fullheight-if="isSmallDevice">
                         <li>
-                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="signInModal()">
+                            <a ui-sref="#" du-smooth-scroll du-scrollspy offset="30" ng-click="openModal('signIn', 'signInModalContent.html', 'authCtrl')">
                                Orders
                             </a>
                         </li>
@@ -41,7 +42,7 @@
 									<a ui-sref="services.document_procurement"><i class="fa fa-book margin-left-5 margin-right-10"></i>Document Procurement</a>
 								</li>
 								<li>
-									<a ui-sref="services.travel_services"><i class="fa fa-plane margin-left-5 margin-right-10"></i>Travel</a>
+									<a ui-sref="services.travel_services"><i class="fa fa-plane margin-left-5 margin-right-10"></i>Travel & Tourism</a>
 								</li>
 								<li>
 									<a ui-sref="services.education_tracking"><i class="fa fa-graduation-cap margin-left-5 margin-right-10"></i>Education & Tracking</a>
@@ -81,7 +82,7 @@
 									<a ui-sref="services.document_procurement"><i class="fa fa-book margin-left-5 margin-right-10"></i>Document Procurement</a>
 								</li>
 								<li>
-									<a ui-sref="services.travel_services"><i class="fa fa-plane margin-left-5 margin-right-10"></i>Travel</a>
+									<a ui-sref="services.travel_services"><i class="fa fa-plane margin-left-5 margin-right-10"></i>Travel & Tourism</a>
 								</li>
 								<li>
 									<a ui-sref="services.education_tracking"><i class="fa fa-graduation-cap margin-left-5 margin-right-10"></i>Education & Tracking</a>
@@ -116,7 +117,7 @@
             </div>
             <!-- end: TOP NAVIGATION CONTAINER -->
         </div>
-<script type="text/ng-template" id="signInModalContent.html">
+		<script type="text/ng-template" id="signInModalContent.html">
                 <div class="modal-header text-center padding-top-20 margin-bottom-0 no-border">
                     <a ng-click="cancelModal('signIn')"><i class="ti ti-close ti-tw pull-right"></i></a>
 					<h5 class="modal-title text-bold text-dark">SIGN IN TO YOUR YEDUPUDI ACCOUNT</h5>

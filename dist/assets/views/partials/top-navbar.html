@@ -1,24 +1,30 @@
 <!-- start: TOP NAVBAR -->
-<header class="navbar navbar-default navbar-static-top hidden-print">
+<header id="dashboard-navbar" class="navbar navbar-default navbar-static-top hidden-print">
     <!-- start: NAVBAR HEADER -->
-    <div class="navbar-header">
-        <button href="javascript:void(0)" class="menu-mobile-toggler btn no-radius pull-left hidden-md hidden-lg" id="horizontal-menu-toggler" ng-click="menuToggle()" v-pressable>
+    <div id="dashboard-header" class="navbar-header">
+        <!--
+		<button href="javascript:void(0)" class="menu-mobile-toggler btn no-radius pull-left hidden-md hidden-lg" id="horizontal-menu-toggler" ng-click="menuToggle()" v-pressable>
             <i class="fa fa-bars"></i>
         </button>
-        <button href="javascript:void(0)" class="sidebar-mobile-toggler btn no-radius pull-left hidden-md hidden-lg" id="sidebar-toggler" ng-click="toggle('sidebar')" v-pressable>
+        -->
+		<button href="javascript:void(0)" class="sidebar-mobile-toggler btn no-radius pull-left hidden-md hidden-lg" id="sidebar-toggler" ng-click="toggle('sidebar')">
             <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand" ui-sref="services.home">Yedupudi<!--<img ng-src="{{app.layout.logo}}" alt="{{app.name}}" />--> </a>
-        <a class="navbar-brand navbar-brand-collapsed" ui-sref="app.dashboard"> <img ng-src="{{app.layout.logoCollapsed}}" alt="" /> </a>
-        <button class="btn pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed" v-pressable>
+        <a id="dashboard-brand" class="navbar-brand" ui-sref="services.home"><img src="assets/images/white-logo-transparent-background.png" alt="Yedupudi" style="height:80px;width:auto"><!--<img ng-src="{{app.layout.logo}}" alt="{{app.name}}" />--> </a>
+        <!--
+		<a class="navbar-brand navbar-brand-collapsed" ui-sref="app.dashboard"> <img ng-src="{{app.layout.logoCollapsed}}" alt="" /> </a>
+		<button class="btn pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed" v-pressable>
             <i ng-class="navbarCollapsed ? 'fa fa-folder' : 'fa fa-folder-open'"></i> <small><i class="fa fa-caret-down margin-left-5"></i></small>      	
         </button>
+		-->
     </div>
     <!-- end: NAVBAR HEADER -->
     <!-- start: NAVBAR COLLAPSE -->
-    <div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="'#menu-toggler'">
+    <!--
+	<div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="'#menu-toggler'">
         <ul class="nav navbar-left hidden-sm hidden-xs">
-            <li class="sidebar-toggler-wrapper">
+            <!--
+			<li class="sidebar-toggler-wrapper">
                 <div>
                     <button href="javascript:void(0)" class="btn sidebar-toggler visible-md visible-lg" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed" v-pressable>
                         <i class="fa fa-bars"></i>
@@ -42,7 +48,8 @@
         <ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
             <!-- start: MESSAGES DROPDOWN -->
             <!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/InboxCtrl.js /// -->
-            <li class="dropdown" uib-dropdown on-toggle="toggled(open)" ng-controller="InboxCtrl">
+            <!--
+			<li class="dropdown" uib-dropdown on-toggle="toggled(open)" ng-controller="InboxCtrl">
                 <a href class="dropdown-toggle" uib-dropdown-toggle>
                     <notification-icon count='scopeVariable'>
                         <i class="fa fa-envelope"></i>
@@ -78,9 +85,11 @@
                     </li>
                 </ul>
             </li>
+			-->
             <!-- end: MESSAGES DROPDOWN -->
             <!-- start: ACTIVITIES DROPDOWN -->
-            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+            <!--
+			<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-bell"></i></a>
                 <ul class="dropdown-menu dropdown-light dropdown-messages dropdown-large animated fadeInUpShort">
                     <li>
@@ -99,9 +108,11 @@
                     </li>
                 </ul>
             </li>
+			-->
             <!-- end: ACTIVITIES DROPDOWN -->
             <!-- start: LANGUAGE SWITCHER -->
-            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+            <!--
+			<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
                 <a href class="dropdown-toggle" uib-dropdown-toggle> <i class="flag-icon" ng-class="'flagstyle'| translate"></i><span>&nbsp;{{language.selected}}</span> </a>
                 <ul role="menu" class="dropdown-menu dropdown-light animated fadeInUpShort ">
                     <li ng-repeat="(localeId, langName) in language.available">
@@ -109,26 +120,34 @@
                     </li>
                 </ul>
             </li>
+			-->
             <!-- end: LANGUAGE SWITCHER -->
-        </ul>
+        <!--
+		</ul>
+		-->
         <!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
-        <div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true" ng-swipe-up="navbarCollapsed = true">
+        <!--
+		<div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true" ng-swipe-up="navbarCollapsed = true">
             <div class="arrow-left"></div>
             <div class="arrow-right"></div>
         </div>
         <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
-    </div>
+	<!--
+	</div>
     <button class="sidebar-mobile-toggler dropdown-off-sidebar btn hidden-md hidden-lg" ng-click="toggle('off-sidebar')" v-pressable>
         &nbsp;
     </button>
     <button class="dropdown-off-sidebar btn hidden-sm hidden-xs" ng-click="toggle('off-sidebar')" v-pressable>
         &nbsp;
     </button>
-    <!-- end: NAVBAR COLLAPSE -->
+    -->
+	<!-- end: NAVBAR COLLAPSE -->
 </header>
 <!-- end: TOP NAVBAR -->
 <!-- start: HORIZONTAL MENU -->
+<!--
 <div data-ng-include=" 'assets/views/partials/horizontal-menu.html' " class="navbar navbar-default horizontal-menu collapse" uib-collapse="horizontalNavbarCollapsed" off-click="menuInit(true)" off-click-if='!horizontalNavbarCollapsed' off-click-filter="'#horizontal-menu-toggler'">
 
 </div>
+-->
 <!-- end: HORIZONTAL MENU -->

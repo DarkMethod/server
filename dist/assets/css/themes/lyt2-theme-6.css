@@ -167,13 +167,19 @@ body {
   color: rgba(0, 0, 0, 0.7);
 }
 .navbar .navbar-collapse .navbar-right > li > a i {
+  /**
   color: rgba(0, 0, 0, 0.7) !important;
+  **/
+  color: rgba(255,255,255,1) ;	
 }
 .navbar .navbar-collapse .navbar-right > li > a:hover {
   color: black;
 }
 .navbar .navbar-collapse .navbar-right > li > a:hover i {
+  /**
   color: black !important;
+  **/
+  color: rgba(255,255,255,1) ;
 }
 .navbar .navbar-collapse .navbar-right .angular-notifications-icon {
   background: #b32925;
@@ -305,8 +311,11 @@ body {
 }
 #sidebar > div nav > ul > li.active {
   background: #15232D !important;
+  /*
   border-color: #5A8770 !important;
-}
+	*/
+  border-color: #C82E29 !important;		
+  }
 #sidebar > div nav > ul > li.active.open, #sidebar > div nav > ul > li.active:hover {
   background: #15232D !important;
 }

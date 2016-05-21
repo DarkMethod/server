@@ -6,10 +6,11 @@ app.factory('modal',['$uibModal', function($uibModal){
 	var modal = {};
 	modal.instance = {};
 	
-	modal.open = function(id, templateUrl, controller){
+	modal.open = function(id, templateUrl, controller, scope){
 		modal.instance[id] = $uibModal.open({
 			templateUrl : templateUrl,
-			controller 	: controller
+			controller 	: controller,
+			scope: scope
 		});
 	};
 	

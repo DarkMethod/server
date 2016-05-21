@@ -35,7 +35,7 @@ var tool = require('cloneextend'),
 							secure: true, // use SSL
 							auth: {
 									user: 'mrmarkam@gmail.com',
-									pass: 'taking it all'
+									pass: 'when it starts to hurt'
 								}
 							},
 			verifyEmailLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/verify/',
@@ -74,7 +74,7 @@ var tool = require('cloneextend'),
 							secure: true, // use SSL
 							auth: {
 									user: 'mrmarkam@gmail.com',
-									pass: 'taking it all'
+									pass: 'when it starts to hurt'
 								}
 							},
 			verifyEmailLink	: 'http://localhost:3000/auth/verify/',
@@ -84,7 +84,7 @@ var tool = require('cloneextend'),
     conf.defaults = {
         application:    {
             jwtSecret   : 'SAOIRSE',
-            routes      : ['user', 'alias'],
+            routes      : ['user', 'alias', 'quote'],
             middleware  : ['compress','json','urlencoded','logger']
         },
         server:         {

@@ -68273,9 +68273,11 @@ app.constant('JS_REQUIRES', {
         'notifyCtrl': 'assets/js/controllers/notifyCtrl.js',
         'sliderCtrl': 'assets/js/controllers/sliderCtrl.js',
         'knobCtrl': 'assets/js/controllers/knobCtrl.js',
+        'taskCtrl': 'assets/js/controllers/taskCtrl.js',
 		
 		//*** Factory & Services
 		'modal': 'assets/js/services/modal.js',
+		'task': 'assets/js/services/task.js'
 		
     },
     //*** angularJS Modules
@@ -68342,6 +68344,9 @@ app.constant('JS_REQUIRES', {
     }, {
         name: 'satellizer',
         files: ['../bower_components/satellizer/satellizer.min.js']
+    },{
+        name: 'ui.select',
+        files: ['../bower_components/angular-ui-select/dist/select.min.js']
     }]
 });
 'use strict';
@@ -68385,10 +68390,10 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 		abstract: true
     }).state('app.dashboard', {
         url: "/dashboard",
-        // templateUrl: "assets/views/dashboard.html",
-        templateUrl: "assets/views/table_data.html",
-        //resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
-        resolve: loadSequence('ngTable', 'ngTableCtrl'),
+        //templateUrl: "assets/views/dashboard.html",
+        templateUrl: "assets/views/tasks.html",
+        // resolve: loadSequence('d3', 'ui.knob', 'countTo', 'dashboardCtrl'),
+        resolve: loadSequence('ngTable', 'task', 'taskCtrl'),
 		title: 'Dashboard',
         ncyBreadcrumb: {
             label: 'Dashboard'
@@ -68831,6 +68836,9 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	}).state('login.login', {
 	    url: '/login/:status',
 	    templateUrl: "assets/views/login_login.html",
+	}).state('login.admin', {
+	    url: '/admin',
+	    templateUrl: "assets/views/login_admin.html",
 	}).state('login.forgot', {
 	    url: '/forgot/:status',
 	    templateUrl: "assets/views/login_forgot.html",
@@ -68851,7 +68859,7 @@ function ($stateProvider, $urlRouterProvider, $controllerProvider, $compileProvi
 	    url: '/landing-page',
 	    template: '<div ui-view class="fade-in-right-big smooth"></div>',
 	    abstract: true,
-	    resolve: loadSequence('jquery-appear-plugin', 'ngAppear', 'countTo')
+	    resolve: loadSequence('jquery-appear-plugin', 'ngAppear', 'countTo', 'modal', 'servicesCtrl')
 	}).state('landing.welcome', {
 	    url: '/welcome',
 	    templateUrl: "assets/views/landing_page.html"
@@ -70750,6 +70758,39 @@ app.directive('touchspin', function () {
     };
 });
 'use strict';
+app.filter('propsFilter', function() {
+  return function(items, props) {
+    var out = [];
+
+    if (angular.isArray(items)) {
+      var keys = Object.keys(props);
+        
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop].toLowerCase();
+          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+
+    return out;
+  };
+})
+
+'use strict';
 /** 
   * Factory for user authentication.
 */
@@ -70816,10 +70857,11 @@ app.factory('modal',['$uibModal', function($uibModal){
 	var modal = {};
 	modal.instance = {};
 	
-	modal.open = function(id, templateUrl, controller){
+	modal.open = function(id, templateUrl, controller, scope){
 		modal.instance[id] = $uibModal.open({
 			templateUrl : templateUrl,
-			controller 	: controller
+			controller 	: controller,
+			scope: scope
 		});
 	};
 	
@@ -70844,18 +70886,44 @@ app.factory('modal',['$uibModal', function($uibModal){
 
 'use strict';
 /** 
+  * Factory for task management.
+*/
+app.factory('task',['$http', function($http){
+	var task = {};
+	
+	task.getTasks = function(id){
+		return $http.get('/quote/'+id).then(function(res) {
+			console.log(res);
+			return res.data.json;
+		}, function(error){
+			console.log(error);
+		});
+	};
+	task.getAllTasks = function(){
+		return $http.get('/quote').then(function(res) {
+			console.log(res);
+			return res.data.json;
+		}, function(error){
+			console.log(error);
+		});
+	};
+
+	return task;
+}]);
+'use strict';
+/** 
   * controller for user authentication.
 */
 app.controller('authCtrl', [
+	'$rootScope',
 	'$scope',
 	'$state',
 	'$stateParams',
 	'$auth',
 	'$http',
-	'$uibModal',
 	'modal',
 	'SweetAlert',
-	function($scope, $state, $stateParams, $auth, $http, $uibModal, modal, SweetAlert){
+	function($rootScope, $scope, $state, $stateParams, $auth, $http, modal, SweetAlert){
 		$scope.message = '';
 		
 		if($stateParams.status === 'expired'){
@@ -70940,19 +71008,40 @@ app.controller('authCtrl', [
 			});
 		};
 
-		$scope.signIn = function(){
-			$auth.login($scope.user) .then(function(response) {
+		$scope.signIn = function(type){
+			var user = {};
+			if(type==='admin'){
+				user = $scope.user;
+				user.type = 'admin';
+			}else{
+				user = $scope.user;
+				user.type = 'client';	
+			}
+			
+			$auth.login(user) .then(function(response) {
 				$auth.setToken(response.data.token);
+				$rootScope.user = $auth.getPayload();
 				if(modal.isOpen('signIn')){
 					modal.close('signIn');
 				}
-				$state.go('services.home');
+				if(type==='admin'){
+					$state.go('app.dashboard');
+				}else{
+					$state.go('services.home');
+				}
 			})
 			.catch(function(response) {
 				var message = {};
 				if(response.status === 401){
 					message.title = 'Invalid!';
 					message.text = 'Invalid email and/or password';
+					if(modal.isOpen('signIn')){
+						modal.close('signIn');
+					}
+					errorAlert(message);
+				}else if(response.status === 403){
+					message.title = 'Invalid!';
+					message.text = 'You have not activated your account. Activate your account by clicking on the link that was mailed to you after sign-up.';
 					if(modal.isOpen('signIn')){
 						modal.close('signIn');
 					}

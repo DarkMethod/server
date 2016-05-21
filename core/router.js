@@ -11,7 +11,7 @@ exports.run = function route( app, auth, routes){
 
         app.get('/'+val, handlers[val].get);
         app.get('/'+val+'/:id',  auth,  handlers[val].find);
-        app.post('/'+val,  auth,  handlers[val].ins);
+        app.post('/'+val,  handlers[val].ins);
         app.put('/'+val+'/:id',  auth,  handlers[val].upd);
         app.delete('/'+val+'/:id',  auth,  handlers[val].del);
     });
