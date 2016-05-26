@@ -30,7 +30,7 @@ var handleConnection = function handleConnection(callback,req,res){
 };
 function handleGet(connection,req,res) {
     var limit = ('undefined' === typeof req.params.limit) ? 20: req.params.limit;
-    connection.query('SELECT * FROM quote ORDER BY uuid DESC LIMIT ' + limit, function handleSql(err, rows) {
+    connection.query('SELECT * FROM quote ORDER BY dateOfRequest DESC LIMIT ' + limit, function handleSql(err, rows) {
         if (err){ logAndRespond(err,res); return; }
         if (rows.length === 0){ res.send(204); return; }
         res.send({
@@ -76,13 +76,18 @@ function handleIns(connection,req,res) {
     });
 }
 function handleUpd(connection,req,res) {
-    connection.query('UPDATE user SET ? WHERE id='+connection.escape(req.params.id), req.body, function handleSql(err) {
+    connection.query('UPDATE quote SET ? WHERE uuid='+connection.escape(req.params.id), req.body, function handleSql(err) {
         if (err){ logAndRespond(err,res); return; }
-        handleFind(connection,req,res)
+        res.statusCode = 200;
+        res.send({
+            result: 'success',
+            err:    '',
+            id:     req.params.id
+        });
     });
 }
 function handleDel(connection,req,res) {
-    connection.query('DELETE FROM user WHERE id = ?', req.params.id, function handleSql(err) {
+    connection.query('DELETE FROM quote WHERE uuid = ?', req.params.id, function handleSql(err) {
         if (err){ logAndRespond(err,res); return; }
         res.send({
             result: 'success',

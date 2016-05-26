@@ -20,7 +20,7 @@ var generateJWT = function(user){
 	name	: user.name,
 	email	: user.email,
 	phone	: user.phone,
-	type: user.type,
+	type	: user.type,
 	exp: parseInt(exp.getTime() /1000),
 	}, conf.application.jwtSecret);
  };

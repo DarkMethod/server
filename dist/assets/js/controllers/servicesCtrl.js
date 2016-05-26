@@ -31,47 +31,80 @@ app.controller('servicesCtrl', [
 							{
 								id	  : 0,	
 								title : 'Buying/Selling Assistance',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Property Maintenance',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title : 'Utility Bill Payments',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 3,
 								title : 'Statutory Payments',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 4,
 								title : 'Rental Collection',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 5,
 								title : 'Tenant Management/Inspections',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 6,
 								title : 'Home Cleaning & Maintenance',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 7,
 								title : 'New Construction & Renovation',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{	
 								id	  : 8,
 								title :'Electrical, Plumbing & Painting',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{	
 								id	  : 9,
 								title : 'Interior Designing',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{		
 								id	  : 10,
 								title : 'Encumbrance/Patta & Other Legal Certificates',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}
 						],		
 				icon : '<span class="fa-stack fa-5x services-fa">'+
@@ -134,31 +167,52 @@ app.controller('servicesCtrl', [
 							{ 
 								id	  : 0,
 								title : 'Home Health Care',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Medicine Delivery',
-								price :	false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title : 'Laboratory Tests At Home',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{		
 								id	  : 3,
 								title : 'Geriatric care',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 4,
 								title : 'Emergency care',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 5,
 								title : 'Medical Tourism',
-								price :	false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 6,
 								title : 'Scheduled Health Checkups – One Time & Recurring',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}
 						],
 				icon :  '<span class="fa-stack fa-5x services-fa">'+
@@ -204,23 +258,38 @@ app.controller('servicesCtrl', [
 							{
 								id	  : 0,
 								title : 'IT Returns Filing',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Arranging Lawyer/Legal Advice',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title : 'Responding To IT Notice, Tax Notifications',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{		
 								id	  : 3,
 								title : 'Court Visits',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 4,
 								title :'Notarization/Attestation Of Documents',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}	
 						],
 				icon :  '<span class="fa-stack fa-5x services-fa">'+
@@ -262,23 +331,38 @@ app.controller('servicesCtrl', [
 							{
 								id	  : 0,
 								title : 'Birth / Death certificates',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Marriage Certificate',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title : 'PAN Card Application',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 3,
 								title : 'Other Documents Procurement',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 4,
 								title : 'Mark sheet/Transcripts/Degree Certificates',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}
 						],
 				icon :  '<span class="fa-stack fa-5x services-fa">'+
@@ -320,23 +404,38 @@ app.controller('servicesCtrl', [
 							{
 								id	  : 0,
 								title : 'Airport Pick Up/Drop Off',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Religious Travel Arrangements',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title : 'Hotel Accomodation',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{		
 								id	  : 3,
 								title : 'Ticket Booking',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 4,
 								title : 'Vehicle Arrangement During India Trip',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}
 						],
 				icon :  '<span class="fa-stack fa-5x services-fa">'+
@@ -378,19 +477,31 @@ app.controller('servicesCtrl', [
 							{
 								id	  : 0,
 								title : 'Monitoring Student (Academic and Personal)',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 1,
 								title : 'Setup And Monitor Coaching Classes, Tuition And Hostel',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 2,
 								title :	'Admissions To Schools/Colleges',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							},{
 								id	  : 3,
 								title : 'Fee payments',
-								price : false
+								price : {
+											type  : 'quote',
+											value : 'Request Quote'
+										}
 							}
 						],
 				icon :  '<span class="fa-stack fa-5x services-fa">'+
@@ -499,6 +610,8 @@ app.controller('servicesCtrl', [
 		$scope.requestQuote = function(param){
 			var quote = $scope.quote;
 			var selectedItems = [];
+			quote.price = 'Quote';
+			
 			if(param!=='query'){
 				$scope.quote.items.forEach(function (item){
 					if(item.selected == true){
