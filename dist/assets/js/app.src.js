@@ -68069,7 +68069,7 @@ function ($rootScope, $state, $stateParams) {
             isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
             isFooterFixed: false, // true if you want to initialize the template with fixed footer
             isBoxedPage: false, // true if you want to initialize the template with boxed layout
-            theme: 'lyt2-theme-1', // indicate the theme chosen for your project
+            theme: 'lyt2-theme-6', // indicate the theme chosen for your project
             logo: 'assets/images/logo.png', // relative path of the project logo
             logoCollapsed: 'assets/images/logo-collapsed.png' // relative path of the collapsed logo
         },
@@ -68107,7 +68107,6 @@ function ($translateProvider) {
 
 }]);
 app.config(function($authProvider) {
-	$authProvider.header = 'yay';
     $authProvider.google({
       clientId: '471606143428-cemgihjevs2nl1dlu4j8i704od08kseb.apps.googleusercontent.com'
     });

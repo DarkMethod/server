@@ -39,6 +39,19 @@
             </div>
         </a>
     </li>
+    <li ng-controller="authCtrl">
+		<a ng-click="signOut()">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="fa fa-sign-out"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title"> Sign Out </span>
+                </div>
+            </div>
+        </a>
+	</li>
+	<!--
     <li ng-class="{'active open':$state.includes('app.pagelayouts')}">
         <a href="javascript:void(0)">
             <div class="item-content">
@@ -504,5 +517,6 @@
             </div>
         </a>
     </li>
+	-->
 </ul>
 <!-- end: FEATURES -->

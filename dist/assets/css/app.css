@@ -31089,12 +31089,25 @@ figure.effect-goliath:hover p {
 }
 */
 .landing-page .landing-content {
-  height: 470px;
+  min-height: 500px;
   padding-top: 168px;
-  background-image: url("../images/landing-page-cover.jpg");
+  background-image:  linear-gradient(
+		rgba(100, 100, 100, 0.45), 
+		rgba(10, 10, 10, 0.45)
+    ),
+	url("../images/landing-page-cover.jpg");
   background-size:cover;
   background-position-y: 19%;
 }
+/*
+.caption-box{
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+*/
 @media (min-width: 992px) {
   .app-navbar-fixed .landing-page .landing-content {
     margin-top: -60px;
@@ -31163,6 +31176,10 @@ figure.effect-goliath:hover p {
   bottom: auto;
   right: auto;
   text-align: center;
+}
+.landing-page .landing-content .custom-caption>h1
+{
+	text-shadow: 2px 2px #1c2b36;;
 }
 /* ---------------------------------------------------------------------- */
 /*  Services Content
