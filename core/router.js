@@ -1,4 +1,3 @@
-var passport = require('passport');
 var helper = require('../routes/helper');
 
 exports.run = function route( app, auth, routes){
@@ -24,6 +23,6 @@ exports.run = function route( app, auth, routes){
 	app.post('/auth/google',helper.googleHandler);
 	app.post('/auth/facebook',helper.facebookHandler);
 	app.get('/auth/verify/:token',helper.verifyEmailHandler);
-	app.get('/auth/reset/:token',helper.resetPasswordHandler);
+	app.get('/auth/reset/:type/:token',helper.resetPasswordHandler);
 	app.post('/auth/reset/:token',helper.updatePasswordHandler);
 };

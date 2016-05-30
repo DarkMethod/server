@@ -39,7 +39,8 @@ var tool = require('cloneextend'),
 								}
 							},
 			verifyEmailLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/verify/',
-			resetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/reset/'	
+			resetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/reset/client/',	
+			adminResetPasswordLink	: 'http://ec2-52-34-0-42.us-west-2.compute.amazonaws.com/auth/reset/admin/'	
 		}
     };
     conf.development = {
@@ -78,7 +79,8 @@ var tool = require('cloneextend'),
 								}
 							},
 			verifyEmailLink	: 'http://localhost:3000/auth/verify/',
-			resetPasswordLink	: 'http://localhost:3000/auth/reset/'	
+			resetPasswordLink	: 'http://localhost:3000/auth/reset/client/',	
+			adminResetPasswordLink	: 'http://localhost:3000/auth/reset/admin/'	
 		}
     };
     conf.defaults = {
